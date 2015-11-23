@@ -1,6 +1,6 @@
 ﻿namespace GrpPro12_2AssigningTicketTimeSlots
 {
-    partial class Form1
+    partial class frmMain
     {
         /// <summary>
         /// Required designer variable.
@@ -36,9 +36,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnIssueTicket = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.lstTicketDisplayInfo = new System.Windows.Forms.ListBox();
-            this.lblTicketsOutstanding = new System.Windows.Forms.Label();
             this.lblTicketTime = new System.Windows.Forms.Label();
+            this.lblTicketsOutstanding = new System.Windows.Forms.Label();
+            this.lstTicketDisplayInfo = new System.Windows.Forms.ListBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -65,6 +65,7 @@
             // lblTicketCountOfGuest
             // 
             this.lblTicketCountOfGuest.AutoSize = true;
+            this.lblTicketCountOfGuest.ForeColor = System.Drawing.Color.Black;
             this.lblTicketCountOfGuest.Location = new System.Drawing.Point(24, 32);
             this.lblTicketCountOfGuest.Name = "lblTicketCountOfGuest";
             this.lblTicketCountOfGuest.Size = new System.Drawing.Size(28, 13);
@@ -74,6 +75,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.lblTicketCountOfGuest);
+            this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.groupBox1.Location = new System.Drawing.Point(16, 16);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(280, 64);
@@ -84,6 +86,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(16, 32);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(126, 13);
@@ -93,6 +96,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(16, 64);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(106, 13);
@@ -101,6 +105,7 @@
             // 
             // btnIssueTicket
             // 
+            this.btnIssueTicket.ForeColor = System.Drawing.Color.Black;
             this.btnIssueTicket.Location = new System.Drawing.Point(16, 96);
             this.btnIssueTicket.Name = "btnIssueTicket";
             this.btnIssueTicket.Size = new System.Drawing.Size(112, 23);
@@ -115,12 +120,33 @@
             this.groupBox2.Controls.Add(this.btnIssueTicket);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.groupBox2.Location = new System.Drawing.Point(16, 88);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(280, 136);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "groupBox2";
+            this.groupBox2.Text = "Ticket Availability";
+            // 
+            // lblTicketTime
+            // 
+            this.lblTicketTime.AutoSize = true;
+            this.lblTicketTime.ForeColor = System.Drawing.Color.Black;
+            this.lblTicketTime.Location = new System.Drawing.Point(160, 64);
+            this.lblTicketTime.Name = "lblTicketTime";
+            this.lblTicketTime.Size = new System.Drawing.Size(94, 13);
+            this.lblTicketTime.TabIndex = 8;
+            this.lblTicketTime.Text = "Time Place Holder";
+            // 
+            // lblTicketsOutstanding
+            // 
+            this.lblTicketsOutstanding.AutoSize = true;
+            this.lblTicketsOutstanding.ForeColor = System.Drawing.Color.Black;
+            this.lblTicketsOutstanding.Location = new System.Drawing.Point(160, 32);
+            this.lblTicketsOutstanding.Name = "lblTicketsOutstanding";
+            this.lblTicketsOutstanding.Size = new System.Drawing.Size(78, 13);
+            this.lblTicketsOutstanding.TabIndex = 7;
+            this.lblTicketsOutstanding.Text = "# Place Holder";
             // 
             // lstTicketDisplayInfo
             // 
@@ -129,24 +155,6 @@
             this.lstTicketDisplayInfo.Name = "lstTicketDisplayInfo";
             this.lstTicketDisplayInfo.Size = new System.Drawing.Size(280, 147);
             this.lstTicketDisplayInfo.TabIndex = 8;
-            // 
-            // lblTicketsOutstanding
-            // 
-            this.lblTicketsOutstanding.AutoSize = true;
-            this.lblTicketsOutstanding.Location = new System.Drawing.Point(160, 32);
-            this.lblTicketsOutstanding.Name = "lblTicketsOutstanding";
-            this.lblTicketsOutstanding.Size = new System.Drawing.Size(78, 13);
-            this.lblTicketsOutstanding.TabIndex = 7;
-            this.lblTicketsOutstanding.Text = "# Place Holder";
-            // 
-            // lblTicketTime
-            // 
-            this.lblTicketTime.AutoSize = true;
-            this.lblTicketTime.Location = new System.Drawing.Point(160, 64);
-            this.lblTicketTime.Name = "lblTicketTime";
-            this.lblTicketTime.Size = new System.Drawing.Size(94, 13);
-            this.lblTicketTime.TabIndex = 8;
-            this.lblTicketTime.Text = "Time Place Holder";
             // 
             // Form1
             // 
