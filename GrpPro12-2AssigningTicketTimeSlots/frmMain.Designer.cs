@@ -151,12 +151,20 @@
             // lstTicketDisplayInfo
             // 
             this.lstTicketDisplayInfo.FormattingEnabled = true;
+            this.lstTicketDisplayInfo.Items.AddRange(new object[] {
+            "Ticket 6: 10:59 AM",
+            "Ticket 7: 10:59 AM",
+            "Ticket 8: 10:59 AM",
+            "Ticket 9: 10:59 AM",
+            "Ticket 10: 10:59 AM",
+            "Ticket 11: 11:04 AM",
+            "Ticket 12: 11:04 AM"});
             this.lstTicketDisplayInfo.Location = new System.Drawing.Point(16, 232);
             this.lstTicketDisplayInfo.Name = "lstTicketDisplayInfo";
             this.lstTicketDisplayInfo.Size = new System.Drawing.Size(280, 147);
             this.lstTicketDisplayInfo.TabIndex = 8;
             // 
-            // Form1
+            // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -167,7 +175,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnOptions);
-            this.Name = "Form1";
+            this.Name = "frmMain";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
