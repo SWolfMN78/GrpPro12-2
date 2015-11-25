@@ -20,6 +20,13 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         private void Form1_Load(object sender, EventArgs e)
         {
 
+            tmrClock.Start();
+
+        }
+
+        private void updateTime(object sender, EventArgs e)
+        {
+            this.Text = tmrClock.ToString();
         }
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnOptions = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.lblTicketCountOfGuest = new System.Windows.Forms.Label();
@@ -39,6 +40,7 @@
             this.lblTicketTime = new System.Windows.Forms.Label();
             this.lblTicketsOutstanding = new System.Windows.Forms.Label();
             this.lstTicketDisplayInfo = new System.Windows.Forms.ListBox();
+            this.tmrClock = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -164,6 +166,10 @@
             this.lstTicketDisplayInfo.Size = new System.Drawing.Size(280, 147);
             this.lstTicketDisplayInfo.TabIndex = 8;
             // 
+            // tmrClock
+            // 
+            this.tmrClock.Tick += new System.EventHandler(this.updateTime);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -199,6 +205,7 @@
         private System.Windows.Forms.ListBox lstTicketDisplayInfo;
         private System.Windows.Forms.Label lblTicketTime;
         private System.Windows.Forms.Label lblTicketsOutstanding;
+        private System.Windows.Forms.Timer tmrClock;
     }
 }
 
