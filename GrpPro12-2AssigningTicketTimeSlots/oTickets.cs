@@ -13,11 +13,11 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         //pull the information from the book from the product class construction - Chapter 14.
         //Draw information on what all is used to construct a ticket - Ticket number,
         
-        public oTickets(int tickets)
+        public oTickets(int tickets, DateTime time)
         {
             for (i=0; i < tickets; i++)
             {
-                this.add(new oTicket())
+                this.add(new oTicket(time))
             }
         }
         
