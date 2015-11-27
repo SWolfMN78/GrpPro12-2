@@ -12,7 +12,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         public DateTime StartTime { get; private set; }
         public TimeSpan Duration { get; private set; }
         public int MaxRiders { get; private set; }
-        public int RidersRemaining { get; private set; }
+        public oTickets Queue {get; set; }
         
         //generates a defauld window with a starttime of 
         // now, a MaxRiders of 5, and a duration of 5 minutes
@@ -21,15 +21,15 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             StartTime = Now();
             Duration = new TimeSpan(0,5,0);
             MaxRiders = 5;
-            RidersRemaining = MaxRiders;
+            Queue = new oTickets(5);
         }
         
-        public oWindow(DateTime start, int people, int duration)
+        public oWindow(DateTime start, int maxTickets, int duration)
         {
-            this.StartTime = start;
-            this.Duration = new TimeSpan(0,duration,0);
-            this.MaxRiders = people;
-            this.RidersRemaining = this.MaxRiders;
+            StartTime = start;
+            Duration = new TimeSpan(0,duration,0);
+            MaxRiders = maxTickets;
+            Queue = new oTickets(maxTickets)
         }
         
         private void ResetWindow()
@@ -40,18 +40,18 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         
         private void ResetRiders()
         {
-            this.RidersRemaining = MaxRiders;   
+            Queue = new oTickets(MaxRiders);   
         }
         
         //this class checks to see how many riders are remaining, if it is 0
         //then it will reset the window to a new time genenerated with the duration property
         //with the maximum number of riders otherwise it will just reduce the RidersRemaining
         //property by 1.
-        public void RemoveRider()
+        public void GiveTicket()
         {
-            if (RidersRemaining > 0)
+            if (Queue.Count > 0)
             {
-                this.RidersRemaiing -= 1;
+                Queue.Remove();
             }
             else
             {
