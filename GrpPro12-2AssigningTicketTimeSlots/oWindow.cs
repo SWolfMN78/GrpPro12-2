@@ -21,7 +21,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             StartTime = Now();
             Duration = new TimeSpan(0,5,0);
             MaxRiders = 5;
-            Queue = new oTickets(5);
+            Queue = new oTickets(5, StartTime);
         }
         
         public oWindow(DateTime start, int maxTickets, int duration)
@@ -29,7 +29,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             StartTime = start;
             Duration = new TimeSpan(0,duration,0);
             MaxRiders = maxTickets;
-            Queue = new oTickets(maxTickets)
+            Queue = new oTickets(maxTickets, StartTime)
         }
         
         private void ResetWindow()
@@ -40,7 +40,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         
         private void ResetRiders()
         {
-            Queue = new oTickets(MaxRiders);   
+            Queue = new oTickets(MaxRiders, StartTime);   
         }
         
         //this class checks to see how many riders are remaining, if it is 0
