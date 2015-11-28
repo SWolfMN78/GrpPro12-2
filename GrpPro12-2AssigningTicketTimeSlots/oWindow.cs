@@ -29,13 +29,13 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             StartTime = start;
             Duration = new TimeSpan(0,duration,0);
             MaxRiders = maxTickets;
-            Queue = new oTickets(maxTickets, StartTime)
+            Queue = new oTickets(maxTickets, StartTime);
         }
         
         private void ResetWindow()
         {
-            StartTime.Add(Duration)
-            ResetRiders()
+            StartTime.Add(Duration);
+            ResetRiders();
         }
         
         private void ResetRiders()
@@ -51,11 +51,12 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         {
             if (Queue.Count > 0)
             {
+                //Need to input which ticket that the ticket will be removed.
                 Queue.Remove();
             }
             else
             {
-                ResetWindow()
+                ResetWindow();
             }
         }
         

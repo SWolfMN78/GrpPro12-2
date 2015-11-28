@@ -17,7 +17,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         {
             for (i=0; i < tickets; i++)
             {
-                this.add(new oTicket(time))
+                this.add(new oTicket(time));
             }
         }
         
