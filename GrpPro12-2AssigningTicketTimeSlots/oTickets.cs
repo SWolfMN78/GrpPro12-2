@@ -15,7 +15,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         
         public oTickets(int tickets, DateTime time)
         {
-            for (i=0; i < tickets; i++)
+            for (int i=0; i < tickets; i++)
             {
                 this.add(new oTicket(time));
             }
@@ -24,16 +24,20 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         public override void Add(oTicket ticket)
         {
             //TODO: define the method for adding a ticket
+            this.Add(ticket);
         }
         
         public override void Remove(oTicket ticket)
         {
             //TODO: define the moethod for removing a ticket
+            this.Remove(ticket);
+
         }
         
         public void Reset()
         {
             //TODO: add a method that resets the list to a new list of tickets
+            this.Reset();
         }
     }
 }
