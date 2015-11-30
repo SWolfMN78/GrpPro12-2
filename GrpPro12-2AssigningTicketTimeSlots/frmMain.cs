@@ -28,7 +28,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         {
             //This method will display the time in the mainform window - working on adding the format
             //to display seconds and AM/PM.
-            this.Text = DateTime.Now.ToShortTimeString();
+            this.Text = DateTime.Now.ToString("hh:mm:ss tt");
         }
     }
 }
