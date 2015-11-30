@@ -29,5 +29,17 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             //This method will display the time in the mainform window.
             this.Text = DateTime.Now.ToString("hh:mm:ss tt") + ("   OPEN");
         }
+        #region buttons
+        private void btnOptions_Click(object sender, EventArgs e)
+        {
+            frmOptions frmOptions = new frmOptions();
+            frmOptions.Show();
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+        #endregion
     }
 }

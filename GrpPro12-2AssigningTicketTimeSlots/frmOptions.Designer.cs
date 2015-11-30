@@ -33,12 +33,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnOkay = new System.Windows.Forms.Button();
             this.txtMinPerWind = new System.Windows.Forms.TextBox();
             this.txtGuestPerWin = new System.Windows.Forms.TextBox();
-            this.txtStartTime = new System.Windows.Forms.TextBox();
-            this.txtEndTime = new System.Windows.Forms.TextBox();
             this.txtFirstTicketNum = new System.Windows.Forms.TextBox();
+            this.dtpStartTime = new System.Windows.Forms.DateTimePicker();
+            this.dtpEndTime = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // label1
@@ -86,14 +86,16 @@
             this.label5.TabIndex = 4;
             this.label5.Text = "First ticket number: ";
             // 
-            // button1
+            // btnOkay
             // 
-            this.button1.Location = new System.Drawing.Point(128, 232);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(99, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "&OK";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnOkay.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnOkay.Location = new System.Drawing.Point(128, 232);
+            this.btnOkay.Name = "btnOkay";
+            this.btnOkay.Size = new System.Drawing.Size(128, 23);
+            this.btnOkay.TabIndex = 5;
+            this.btnOkay.Text = "&OK";
+            this.btnOkay.UseVisualStyleBackColor = true;
+            this.btnOkay.Click += new System.EventHandler(this.button1_Click);
             // 
             // txtMinPerWind
             // 
@@ -109,20 +111,6 @@
             this.txtGuestPerWin.Size = new System.Drawing.Size(128, 20);
             this.txtGuestPerWin.TabIndex = 7;
             // 
-            // txtStartTime
-            // 
-            this.txtStartTime.Location = new System.Drawing.Point(128, 104);
-            this.txtStartTime.Name = "txtStartTime";
-            this.txtStartTime.Size = new System.Drawing.Size(128, 20);
-            this.txtStartTime.TabIndex = 8;
-            // 
-            // txtEndTime
-            // 
-            this.txtEndTime.Location = new System.Drawing.Point(128, 144);
-            this.txtEndTime.Name = "txtEndTime";
-            this.txtEndTime.Size = new System.Drawing.Size(128, 20);
-            this.txtEndTime.TabIndex = 9;
-            // 
             // txtFirstTicketNum
             // 
             this.txtFirstTicketNum.Location = new System.Drawing.Point(128, 184);
@@ -130,17 +118,41 @@
             this.txtFirstTicketNum.Size = new System.Drawing.Size(128, 20);
             this.txtFirstTicketNum.TabIndex = 10;
             // 
+            // dtpStartTime
+            // 
+            this.dtpStartTime.CustomFormat = "";
+            this.dtpStartTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpStartTime.Location = new System.Drawing.Point(128, 104);
+            this.dtpStartTime.Name = "dtpStartTime";
+            this.dtpStartTime.ShowUpDown = true;
+            this.dtpStartTime.Size = new System.Drawing.Size(128, 20);
+            this.dtpStartTime.TabIndex = 11;
+            this.dtpStartTime.Value = new System.DateTime(2015, 11, 30, 13, 24, 55, 0);
+            // 
+            // dtpEndTime
+            // 
+            this.dtpEndTime.CustomFormat = "hh:mm tt";
+            this.dtpEndTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpEndTime.Location = new System.Drawing.Point(128, 144);
+            this.dtpEndTime.Name = "dtpEndTime";
+            this.dtpEndTime.ShowUpDown = true;
+            this.dtpEndTime.Size = new System.Drawing.Size(128, 20);
+            this.dtpEndTime.TabIndex = 12;
+            this.dtpEndTime.Value = new System.DateTime(2015, 11, 30, 13, 24, 55, 0);
+            // 
             // frmOptions
             // 
+            this.AcceptButton = this.btnOkay;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnOkay;
             this.ClientSize = new System.Drawing.Size(271, 281);
+            this.Controls.Add(this.dtpEndTime);
+            this.Controls.Add(this.dtpStartTime);
             this.Controls.Add(this.txtFirstTicketNum);
-            this.Controls.Add(this.txtEndTime);
-            this.Controls.Add(this.txtStartTime);
             this.Controls.Add(this.txtGuestPerWin);
             this.Controls.Add(this.txtMinPerWind);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnOkay);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -151,6 +163,7 @@
             this.Name = "frmOptions";
             this.ShowIcon = false;
             this.Text = "Options";
+            this.Load += new System.EventHandler(this.frmOptions_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -163,11 +176,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnOkay;
         private System.Windows.Forms.TextBox txtMinPerWind;
         private System.Windows.Forms.TextBox txtGuestPerWin;
-        private System.Windows.Forms.TextBox txtStartTime;
-        private System.Windows.Forms.TextBox txtEndTime;
         private System.Windows.Forms.TextBox txtFirstTicketNum;
+        private System.Windows.Forms.DateTimePicker dtpStartTime;
+        private System.Windows.Forms.DateTimePicker dtpEndTime;
     }
 }

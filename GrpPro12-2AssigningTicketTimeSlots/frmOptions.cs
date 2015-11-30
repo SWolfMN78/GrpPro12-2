@@ -16,5 +16,19 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         {
             InitializeComponent();
         }
+        private void frmOptions_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        #region button
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //when this is pressed it for now it will close the form.
+            //***** This will be considered complete when the information is loaded to
+            //the main form.
+            Close();
+        }
+        #endregion
     }
 }
