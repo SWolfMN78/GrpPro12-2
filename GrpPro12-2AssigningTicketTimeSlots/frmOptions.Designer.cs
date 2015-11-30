@@ -120,8 +120,8 @@
             // 
             // dtpStartTime
             // 
-            this.dtpStartTime.CustomFormat = "";
-            this.dtpStartTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpStartTime.CustomFormat = "hh:mm tt";
+            this.dtpStartTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpStartTime.Location = new System.Drawing.Point(128, 104);
             this.dtpStartTime.Name = "dtpStartTime";
             this.dtpStartTime.ShowUpDown = true;
@@ -132,7 +132,7 @@
             // dtpEndTime
             // 
             this.dtpEndTime.CustomFormat = "hh:mm tt";
-            this.dtpEndTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpEndTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpEndTime.Location = new System.Drawing.Point(128, 144);
             this.dtpEndTime.Name = "dtpEndTime";
             this.dtpEndTime.ShowUpDown = true;
