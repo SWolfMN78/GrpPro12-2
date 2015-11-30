@@ -19,14 +19,16 @@ namespace GrpPro12_2AssigningTicketTimeSlots
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            //this method call handles starting the timer.
             tmrClock.Start();
 
         }
 
         private void updateTime(object sender, EventArgs e)
         {
-            this.Text = tmrClock.ToString();
+            //This method will display the time in the mainform window - working on adding the format
+            //to display seconds and AM/PM.
+            this.Text = DateTime.Now.ToShortTimeString();
         }
     }
 }

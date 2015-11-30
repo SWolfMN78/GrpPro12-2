@@ -18,7 +18,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         // now, a MaxRiders of 5, and a duration of 5 minutes
         public oWindow()
         {
-            StartTime = Now();
+            StartTime = DateTime.Now;
             Duration = new TimeSpan(0,5,0);
             MaxRiders = 5;
             Queue = new oTickets(5, StartTime);
@@ -52,7 +52,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             if (Queue.Count > 0)
             {
                 //Need to input which ticket that the ticket will be removed.
-                Queue.Remove();
+                //Queue.Remove(oTicket());
             }
             else
             {
