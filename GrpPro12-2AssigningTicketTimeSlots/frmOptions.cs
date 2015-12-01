@@ -12,9 +12,11 @@ namespace GrpPro12_2AssigningTicketTimeSlots
 {
     public partial class frmOptions : Form
     {
-        public frmOptions()
+        public frmMain Main;
+        public frmOptions(frmMain main)
         {
             InitializeComponent();
+            Main = main;
         }
         private void frmOptions_Load(object sender, EventArgs e)
         {
@@ -27,6 +29,8 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             //when this is pressed it for now it will close the form.
             //***** This will be considered complete when the information is loaded to
             //the main form.
+            TimeSpan ts = new TimeSpan(0, int.Parse(numMinutes.Value.ToString()),0);
+            Main.today = new Day(dtpStartTime.Value, dtpEndTime.Value,ts);
             Close();
         }
         #endregion
