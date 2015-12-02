@@ -13,21 +13,22 @@ namespace GrpPro12_2AssigningTicketTimeSlots
     /// </summary>
     public class Day
     {
+        private string open;
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public List<oWindow> Windows { get; private set; }
         public TimeSpan WindowSize { get; set; }
         public oWindow CurrentWindow { get; set; }
 
-        public string Open
+        public bool Open
         {
             get
             {
                 if (Windows.Count <= 0)
                 {
-                    return "OPEN";
+                    return false;
                 }
-                return "CLOSED";
+                return true;
             }
         }
 
@@ -57,7 +58,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             End = end;
             WindowSize = windowSize;
             SetWindows();
-            //after the total full windows have been counter
+            //after the total full windows have been counted
             //this reduces the end time by any remainder
             End = Start.AddMinutes(Windows.Count*windowSize.Minutes);
         }
@@ -78,7 +79,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             List<oWindow> updatedOWindows = new List<oWindow>();
             foreach (var oWindow in Windows)
             {
-                if (oWindow.StartTime > DateTime.Now)
+                if (oWindow.StartTime > DateTime.Now && oWindow.Queue.Count > 0)
                 {
                     updatedOWindows.Add(oWindow);
                 }

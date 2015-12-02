@@ -30,7 +30,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             //***** This will be considered complete when the information is loaded to
             //the main form.
             TimeSpan ts = new TimeSpan(0, int.Parse(numMinutes.Value.ToString()),0);
-            Main.today = new Day(dtpStartTime.Value, dtpEndTime.Value,ts);
+            Main.today = new Day(dtpStartTime.Value, dtpEndTime.Value,TimeSpan.Parse(numMinutes.Text));
             Close();
         }
         #endregion
