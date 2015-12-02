@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace GrpPro12_2AssigningTicketTimeSlots
 {
     //Class object that will be what is composed of a ticket.
-    class oTicket
+    public class oTicket
     {
         public DateTime Time { get; set; }
         public int NumberIndex { get; set; }
