@@ -26,22 +26,15 @@ namespace GrpPro12_2AssigningTicketTimeSlots
 
         private void updateTime(object sender, EventArgs e)
         {
-            string open;
-            if (today.Open)
-            {
-                open = "OPEN";
-            }
-            else
-            {
-                open = "CLOSED";
-            }
+            
             //This method will display the time in the mainform window.
-            this.Text = string.Format("{0}  {1}",DateTime.Now.ToString("hh:mm:ss tt"),open);
+            this.Text = $"{DateTime.Now.ToString("hh:mm:ss tt")}  {today.Open}";
         }
         #region buttons
         private void btnOptions_Click(object sender, EventArgs e)
         {
-            frmOptions frmOptions = new frmOptions(this);
+            var frmOptions = new frmOptions(this);
+
             frmOptions.Show();
         }
 

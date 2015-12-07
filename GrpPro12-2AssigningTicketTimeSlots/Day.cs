@@ -19,16 +19,17 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         public List<oWindow> Windows { get; private set; }
         public TimeSpan WindowSize { get; set; }
         public oWindow CurrentWindow { get; set; }
+        public int MaxRiders { get; set; }
 
-        public bool Open
+        public string Open
         {
             get
             {
                 if (Windows.Count <= 0)
                 {
-                    return false;
+                    return "OPEN";
                 }
-                return true;
+                return "CLOSED";
             }
         }
 
@@ -41,6 +42,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             Start = DateTime.Parse("09:00");
             End = Start.AddHours(8);
             WindowSize = TimeSpan.Parse("00:05:00");
+            MaxRiders = 5;
             SetWindows();
         }
 
@@ -52,26 +54,30 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// <param name="start"></param>
         /// <param name="end"></param>
         /// <param name="windowSize"></param>
-        public Day(DateTime start, DateTime end, TimeSpan windowSize)
+        public Day(DateTime start, DateTime end, string windowSize, int maxRiders)
         {
             Start = start;
             End = end;
-            WindowSize = windowSize;
+            WindowSize = TimeSpan.Parse(string.Format("00:{0}:00", windowSize));
             SetWindows();
             //after the total full windows have been counted
             //this reduces the end time by any remainder
-            End = Start.AddMinutes(Windows.Count*windowSize.Minutes);
+            End = Start.AddMinutes(Windows.Count*WindowSize.Minutes);
+            MaxRiders = maxRiders;
         }
 
         private void SetWindows()
         {
-            int minutesOpen = End.Subtract(Start).Minutes;
+            this.Windows = new List<oWindow>();
+            TimeSpan minutes = End.Subtract(Start);
+            int minutesOpen = minutes.Hours * 60;
             int windowNumber = (minutesOpen/WindowSize.Minutes);
             for (int i = 0; i < windowNumber; i++)
             {
                 DateTime start = Start.AddMinutes(WindowSize.Minutes*i);
-                Windows.Add(new oWindow(start,minutesOpen,WindowSize.Minutes));
+                Windows.Add(new oWindow(start, MaxRiders, minutesOpen));
             }
+            CheckWindows();
         }
 
         public void CheckWindows()
@@ -79,12 +85,17 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             List<oWindow> updatedOWindows = new List<oWindow>();
             foreach (var oWindow in Windows)
             {
-                if (oWindow.StartTime > DateTime.Now && oWindow.Queue.Count > 0)
+                if (oWindow.StartTime > DateTime.Now)
                 {
                     updatedOWindows.Add(oWindow);
                 }
             }
             Windows = updatedOWindows;
-        }
+            if (CurrentWindow == null || CurrentWindow.Queue.Count > 0 || CurrentWindow.StartTime > DateTime.Now)
+            {
+                CurrentWindow = Windows[0];
+                Windows.RemoveAt(0);
+            }
+        }        
     }
 }

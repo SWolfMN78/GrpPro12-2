@@ -10,8 +10,9 @@ namespace GrpPro12_2AssigningTicketTimeSlots
     public class oTicket
     {
         public DateTime Time { get; set; }
-        public int NumberIndex { get; set; }
-        
+
+        public int index { get; set; }
+                
         public oTicket(DateTime time)
         {
             Time = time;
