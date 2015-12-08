@@ -12,12 +12,20 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         public DateTime Time { get; set; }
 
         public int index { get; set; }
-                
+        
+        /// <summary>
+        /// constructor takes in the time at rider can ride
+        /// </summary>
+        /// <param name="time"></param>
         public oTicket(DateTime time)
         {
             Time = time;
         }
 
+        /// <summary>
+        /// provides the ticket number and the time a rider can ride
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return string.Format("Ticket {0}: {1}",index,Time); 
