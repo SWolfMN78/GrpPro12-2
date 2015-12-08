@@ -58,7 +58,7 @@
             // btnExit
             // 
             this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnExit.Location = new System.Drawing.Point(200, 400);
+            this.btnExit.Location = new System.Drawing.Point(192, 400);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(99, 23);
             this.btnExit.TabIndex = 1;
