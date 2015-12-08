@@ -38,6 +38,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// </summary>
         public Day()
         {
+            Windows = new List<oWindow>();
             Start = DateTime.Parse("09:00");
             End = Start.AddHours(8);
             WindowSize = TimeSpan.Parse("00:05:00");
