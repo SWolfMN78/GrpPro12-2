@@ -48,7 +48,7 @@
             // btnOptions
             // 
             this.btnOptions.Location = new System.Drawing.Point(32, 769);
-            this.btnOptions.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnOptions.Margin = new System.Windows.Forms.Padding(6);
             this.btnOptions.Name = "btnOptions";
             this.btnOptions.Size = new System.Drawing.Size(192, 44);
             this.btnOptions.TabIndex = 0;
@@ -60,7 +60,7 @@
             // 
             this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnExit.Location = new System.Drawing.Point(400, 769);
-            this.btnExit.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnExit.Margin = new System.Windows.Forms.Padding(6);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(198, 44);
             this.btnExit.TabIndex = 1;
@@ -84,9 +84,9 @@
             this.groupBox1.Controls.Add(this.lblTicketCountOfGuest);
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.groupBox1.Location = new System.Drawing.Point(32, 31);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(6);
             this.groupBox1.Size = new System.Drawing.Size(560, 123);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
@@ -118,12 +118,13 @@
             // 
             this.btnIssueTicket.ForeColor = System.Drawing.Color.Black;
             this.btnIssueTicket.Location = new System.Drawing.Point(32, 185);
-            this.btnIssueTicket.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnIssueTicket.Margin = new System.Windows.Forms.Padding(6);
             this.btnIssueTicket.Name = "btnIssueTicket";
             this.btnIssueTicket.Size = new System.Drawing.Size(224, 44);
             this.btnIssueTicket.TabIndex = 6;
             this.btnIssueTicket.Text = "Issue Ticket";
             this.btnIssueTicket.UseVisualStyleBackColor = true;
+            this.btnIssueTicket.Click += new System.EventHandler(this.btnIssueTicket_Click);
             // 
             // groupBox2
             // 
@@ -134,9 +135,9 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.groupBox2.Location = new System.Drawing.Point(32, 169);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(6);
             this.groupBox2.Size = new System.Drawing.Size(560, 262);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
@@ -177,7 +178,7 @@
             "Ticket 11: 11:04 AM",
             "Ticket 12: 11:04 AM"});
             this.lstTicketDisplayInfo.Location = new System.Drawing.Point(32, 446);
-            this.lstTicketDisplayInfo.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.lstTicketDisplayInfo.Margin = new System.Windows.Forms.Padding(6);
             this.lstTicketDisplayInfo.Name = "lstTicketDisplayInfo";
             this.lstTicketDisplayInfo.Size = new System.Drawing.Size(556, 279);
             this.lstTicketDisplayInfo.TabIndex = 8;
@@ -198,7 +199,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnOptions);
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "frmMain";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);

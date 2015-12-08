@@ -32,17 +32,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             MaxRiders = maxTickets;
             Queue = new List<oTicket>(maxTickets);
             loadTickets();
-        }      
-
-
-        public void GiveTicket()
-        {
-            if (Queue.Count > 0)
-            {
-                //Need to input which ticket that the ticket will be removed.
-                Queue.RemoveAt(0);
-            }
-        }
+        }     
 
         public void loadTickets()
         {

@@ -17,5 +17,10 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         {
             Time = time;
         }
+
+        public override string ToString()
+        {
+            return string.Format("Ticket {0}: {1}",index,Time); 
+        }
     }
 }

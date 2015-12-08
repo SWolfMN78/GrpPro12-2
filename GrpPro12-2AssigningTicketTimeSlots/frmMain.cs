@@ -25,16 +25,16 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         }
 
         private void updateTime(object sender, EventArgs e)
-        {
-            
+        {            
             //This method will display the time in the mainform window.
             this.Text = $"{DateTime.Now.ToString("hh:mm:ss tt")}  {today.Open}";
+            updateListbox();
+            today.CheckWindows();
         }
         #region buttons
         private void btnOptions_Click(object sender, EventArgs e)
         {
             var frmOptions = new frmOptions(this);
-
             frmOptions.Show();
         }
 
@@ -43,5 +43,23 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             Close();
         }
         #endregion
+
+        private void btnIssueTicket_Click(object sender, EventArgs e)
+        {
+            today.GiveTicket();
+            updateListbox();
+        }
+
+        private void updateListbox()
+        {
+            if (lstTicketDisplayInfo.Items.Count != today.PendingTickets.Count)
+            {
+                lstTicketDisplayInfo.Items.Clear();
+                foreach (var pendingTicket in today.PendingTickets)
+                {
+                    lstTicketDisplayInfo.Items.Add(pendingTicket);
+                }
+            }
+        }
     }
 }

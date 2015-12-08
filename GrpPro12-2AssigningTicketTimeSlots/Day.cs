@@ -20,12 +20,14 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         public TimeSpan WindowSize { get; set; }
         public oWindow CurrentWindow { get; set; }
         public int MaxRiders { get; set; }
+        public int TicketNumber { get; set; }
+        public List<oTicket> PendingTickets { get; set; } 
 
         public string Open
         {
             get
             {
-                if (Windows.Count <= 0)
+                if (Windows.Count > 0)
                 {
                     return "OPEN";
                 }
@@ -39,10 +41,12 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// </summary>
         public Day()
         {
-            Start = DateTime.Parse("09:00");
+            Start = DateTime.Parse("19:00");
             End = Start.AddHours(8);
-            WindowSize = TimeSpan.Parse("00:05:00");
+            WindowSize = TimeSpan.Parse("00:01:00");
             MaxRiders = 5;
+            TicketNumber = 1;
+
             SetWindows();
         }
 
@@ -54,16 +58,17 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// <param name="start"></param>
         /// <param name="end"></param>
         /// <param name="windowSize"></param>
-        public Day(DateTime start, DateTime end, string windowSize, int maxRiders)
+        public Day(DateTime start, DateTime end, string windowSize, int maxRiders, int startingTicket)
         {
             Start = start;
             End = end;
             WindowSize = TimeSpan.Parse(string.Format("00:{0}:00", windowSize));
+            MaxRiders = maxRiders;
             SetWindows();
             //after the total full windows have been counted
             //this reduces the end time by any remainder
-            End = Start.AddMinutes(Windows.Count*WindowSize.Minutes);
-            MaxRiders = maxRiders;
+            End = Start.AddMinutes(Windows.Count*int.Parse(windowSize));
+            TicketNumber = startingTicket;
         }
 
         private void SetWindows()
@@ -75,27 +80,60 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             for (int i = 0; i < windowNumber; i++)
             {
                 DateTime start = Start.AddMinutes(WindowSize.Minutes*i);
-                Windows.Add(new oWindow(start, MaxRiders, minutesOpen));
+                Windows.Add(new oWindow(start, MaxRiders,WindowSize.Minutes));
             }
+            PendingTickets = new List<oTicket>();
             CheckWindows();
         }
 
         public void CheckWindows()
         {
+            if (Windows.Count > 0 && (CurrentWindow == null || CurrentWindow.Queue.Count <= 0 || CurrentWindow.StartTime.Ticks <= DateTime.Now.Ticks))
+            {
+                removeOldWindows();
+                CurrentWindow = Windows[0];
+                Windows.RemoveAt(0);
+                
+            }
+            checkTickets();
+        }
+
+        private void removeOldWindows()
+        {
             List<oWindow> updatedOWindows = new List<oWindow>();
             foreach (var oWindow in Windows)
             {
-                if (oWindow.StartTime > DateTime.Now)
+                if (oWindow.StartTime.Ticks > DateTime.Now.Ticks)
                 {
                     updatedOWindows.Add(oWindow);
                 }
             }
             Windows = updatedOWindows;
-            if (CurrentWindow == null || CurrentWindow.Queue.Count > 0 || CurrentWindow.StartTime > DateTime.Now)
+        }
+
+        public void GiveTicket()
+        {
+            if (CurrentWindow.Queue.Count > 0)
             {
-                CurrentWindow = Windows[0];
-                Windows.RemoveAt(0);
+                CurrentWindow.Queue[0].index = TicketNumber;
+                PendingTickets.Add(CurrentWindow.Queue[0]);
+                TicketNumber ++;
+                CurrentWindow.Queue.RemoveAt(0);
+                CheckWindows();
             }
-        }        
+        }
+
+        private void checkTickets()
+        {
+            var tempTickets = new List<oTicket>();
+            foreach (var pendingTicket in PendingTickets)
+            {
+                if (pendingTicket.Time.Ticks > DateTime.Now.Ticks)
+                {
+                    tempTickets.Add(pendingTicket);
+                }
+            }
+            PendingTickets = tempTickets;
+        }
     }
 }

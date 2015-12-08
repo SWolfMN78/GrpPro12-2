@@ -34,13 +34,14 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.btnOkay = new System.Windows.Forms.Button();
-            this.txtFirstTicketNum = new System.Windows.Forms.TextBox();
             this.dtpStartTime = new System.Windows.Forms.DateTimePicker();
             this.dtpEndTime = new System.Windows.Forms.DateTimePicker();
             this.numRidersPer = new System.Windows.Forms.NumericUpDown();
             this.numMinutes = new System.Windows.Forms.NumericUpDown();
+            this.numFirstTickets = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numRidersPer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMinutes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numFirstTickets)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -105,14 +106,6 @@
             this.btnOkay.UseVisualStyleBackColor = true;
             this.btnOkay.Click += new System.EventHandler(this.button1_Click);
             // 
-            // txtFirstTicketNum
-            // 
-            this.txtFirstTicketNum.Location = new System.Drawing.Point(256, 370);
-            this.txtFirstTicketNum.Margin = new System.Windows.Forms.Padding(6);
-            this.txtFirstTicketNum.Name = "txtFirstTicketNum";
-            this.txtFirstTicketNum.Size = new System.Drawing.Size(252, 31);
-            this.txtFirstTicketNum.TabIndex = 10;
-            // 
             // dtpStartTime
             // 
             this.dtpStartTime.CustomFormat = "hh:mm tt";
@@ -151,6 +144,13 @@
             this.numMinutes.Size = new System.Drawing.Size(252, 31);
             this.numMinutes.TabIndex = 14;
             // 
+            // numFirstTickets
+            // 
+            this.numFirstTickets.Location = new System.Drawing.Point(256, 363);
+            this.numFirstTickets.Name = "numFirstTickets";
+            this.numFirstTickets.Size = new System.Drawing.Size(252, 31);
+            this.numFirstTickets.TabIndex = 15;
+            // 
             // frmOptions
             // 
             this.AcceptButton = this.btnOkay;
@@ -158,11 +158,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnOkay;
             this.ClientSize = new System.Drawing.Size(542, 540);
+            this.Controls.Add(this.numFirstTickets);
             this.Controls.Add(this.numMinutes);
             this.Controls.Add(this.numRidersPer);
             this.Controls.Add(this.dtpEndTime);
             this.Controls.Add(this.dtpStartTime);
-            this.Controls.Add(this.txtFirstTicketNum);
             this.Controls.Add(this.btnOkay);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -177,6 +177,7 @@
             this.Text = "Options";
             ((System.ComponentModel.ISupportInitialize)(this.numRidersPer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMinutes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numFirstTickets)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -190,10 +191,10 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnOkay;
-        private System.Windows.Forms.TextBox txtFirstTicketNum;
         private System.Windows.Forms.DateTimePicker dtpStartTime;
         private System.Windows.Forms.DateTimePicker dtpEndTime;
         private System.Windows.Forms.NumericUpDown numRidersPer;
         private System.Windows.Forms.NumericUpDown numMinutes;
+        private System.Windows.Forms.NumericUpDown numFirstTickets;
     }
 }
