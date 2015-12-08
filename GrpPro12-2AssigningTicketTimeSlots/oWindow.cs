@@ -10,7 +10,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
     public class oWindow
     {
         public DateTime StartTime { get; private set; }
-        public TimeSpan Duration { get; private set; }
+        public int Duration { get; private set; }
         public int MaxRiders { get; private set; }
         public List<oTicket> Queue {get; set; }
         
@@ -19,29 +19,26 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         public oWindow()
         {
             StartTime = DateTime.Now;
-            Duration = new TimeSpan(0,5,0);
+            Duration = 5;
             MaxRiders = 5;
             Queue = new List<oTicket>(5);
+            loadTickets();
         }
         
         public oWindow(DateTime start, int maxTickets, int duration)
         {
             StartTime = start;
-            Duration = new TimeSpan(0,duration,0);
+            Duration = duration;
             MaxRiders = maxTickets;
             Queue = new List<oTicket>(maxTickets);
-        }      
+            loadTickets();
+        }     
 
-        //this class checks to see how many riders are remaining, if it is 0
-        //then it will reset the window to a new time genenerated with the duration property
-        //with the maximum number of riders otherwise it will just reduce the RidersRemaining
-        //property by 1.
-        public void GiveTicket()
+        public void loadTickets()
         {
-            if (Queue.Count > 0)
+            for (int i = 0; i < MaxRiders; i++)
             {
-                //Need to input which ticket that the ticket will be removed.
-                Queue.RemoveAt(0);
+                Queue.Add(new oTicket(StartTime));
             }
         }
         

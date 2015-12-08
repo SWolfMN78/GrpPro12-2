@@ -10,11 +10,17 @@ namespace GrpPro12_2AssigningTicketTimeSlots
     public class oTicket
     {
         public DateTime Time { get; set; }
-        public int NumberIndex { get; set; }
-        
+
+        public int index { get; set; }
+                
         public oTicket(DateTime time)
         {
             Time = time;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Ticket {0}: {1}",index,Time); 
         }
     }
 }

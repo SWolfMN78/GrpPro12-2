@@ -17,20 +17,19 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         {
             InitializeComponent();
             Main = main;
+            dtpStartTime.Value = main.today.Start;
+            dtpEndTime.Value = main.today.End;
+            numMinutes.Value = main.today.WindowSize.Minutes;
+            numRidersPer.Value = main.today.MaxRiders;
+
         }
-        private void frmOptions_Load(object sender, EventArgs e)
-        {
-            
-        }
+
 
         #region button
         private void button1_Click(object sender, EventArgs e)
         {
-            //when this is pressed it for now it will close the form.
-            //***** This will be considered complete when the information is loaded to
-            //the main form.
-            TimeSpan ts = new TimeSpan(0, int.Parse(numMinutes.Value.ToString()),0);
-            Main.today = new Day(dtpStartTime.Value, dtpEndTime.Value,TimeSpan.Parse(numMinutes.Text));
+            Day newDay = new Day(dtpStartTime.Value, dtpEndTime.Value, numMinutes.Text, (int)numRidersPer.Value, (int)numFirstTickets.Value);
+            Main.today = newDay;
             Close();
         }
         #endregion
