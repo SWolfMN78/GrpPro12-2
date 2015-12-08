@@ -12,7 +12,16 @@ namespace GrpPro12_2AssigningTicketTimeSlots
 {
     public partial class frmOptions : Form
     {
+        /// <summary>
+        /// this holds our main form instance
+        /// </summary>
         public frmMain Main;
+
+        /// <summary>
+        /// create a new for and set the main form variables into the 
+        /// correct controls on the options form
+        /// </summary>
+        /// <param name="main"></param>
         public frmOptions(frmMain main)
         {
             InitializeComponent();
@@ -26,6 +35,11 @@ namespace GrpPro12_2AssigningTicketTimeSlots
 
 
         #region button
+        /// <summary>
+        /// create a new day and pass the values from the 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             Day newDay = new Day(dtpStartTime.Value, dtpEndTime.Value, numMinutes.Text, (int)numRidersPer.Value, (int)numFirstTickets.Value);

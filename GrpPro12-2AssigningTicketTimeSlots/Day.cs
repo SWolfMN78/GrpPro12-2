@@ -71,6 +71,10 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             TicketNumber = startingTicket;
         }
 
+        /// <summary>
+        /// create the list of windows required for a day and update the end time to be
+        /// end at the end of the last windows (this is probably needless)
+        /// </summary>
         private void SetWindows()
         {
             this.Windows = new List<oWindow>();
@@ -86,6 +90,9 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             CheckWindows();
         }
 
+        /// <summary>
+        /// check that the windows have not expired
+        /// </summary>
         public void CheckWindows()
         {
             if (Windows.Count > 0 && (CurrentWindow == null || CurrentWindow.Queue.Count <= 0 || CurrentWindow.StartTime.Ticks <= DateTime.Now.Ticks))
@@ -98,6 +105,9 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             checkTickets();
         }
 
+        /// <summary>
+        /// if the windows have pased the end time, remove them from the list of windows
+        /// </summary>
         private void removeOldWindows()
         {
             List<oWindow> updatedOWindows = new List<oWindow>();
@@ -111,6 +121,10 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             Windows = updatedOWindows;
         }
 
+        /// <summary>
+        /// remove a ticket from the current window's ticket queue
+        /// and provide it the correct ticket ID
+        /// </summary>
         public void GiveTicket()
         {
             if (CurrentWindow.Queue.Count > 0)
@@ -123,6 +137,9 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             }
         }
 
+        /// <summary>
+        /// check to make sure that all the tickets in pending tickets have not passed their start time
+        /// </summary>
         private void checkTickets()
         {
             var tempTickets = new List<oTicket>();

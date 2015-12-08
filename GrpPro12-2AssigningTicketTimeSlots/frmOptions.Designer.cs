@@ -140,16 +140,36 @@
             // numMinutes
             // 
             this.numMinutes.Location = new System.Drawing.Point(256, 56);
+            this.numMinutes.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numMinutes.Name = "numMinutes";
             this.numMinutes.Size = new System.Drawing.Size(252, 31);
             this.numMinutes.TabIndex = 14;
+            this.numMinutes.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // numFirstTickets
             // 
             this.numFirstTickets.Location = new System.Drawing.Point(256, 363);
+            this.numFirstTickets.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numFirstTickets.Name = "numFirstTickets";
             this.numFirstTickets.Size = new System.Drawing.Size(252, 31);
             this.numFirstTickets.TabIndex = 15;
+            this.numFirstTickets.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // frmOptions
             // 
