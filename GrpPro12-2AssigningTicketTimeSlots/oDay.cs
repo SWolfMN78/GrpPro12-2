@@ -11,7 +11,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
     /// Class defining a group of windows in a day
     /// holds the open property to dictace the titlebar
     /// </summary>
-    public class Day
+    public class oDay
     {
         private string open;
         public DateTime Start { get; set; }
@@ -39,7 +39,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// Default constructor sets open at 9am and close 8 hours later
         /// the window size is 5 minutes creating 96 windows
         /// </summary>
-        public Day()
+        public oDay()
         {
             Start = DateTime.Parse("19:00");
             End = Start.AddHours(8);
@@ -58,7 +58,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// <param name="start"></param>
         /// <param name="end"></param>
         /// <param name="windowSize"></param>
-        public Day(DateTime start, DateTime end, string windowSize, int maxRiders, int startingTicket)
+        public oDay(DateTime start, DateTime end, string windowSize, int maxRiders, int startingTicket)
         {
             Start = start;
             End = end;

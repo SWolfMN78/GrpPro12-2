@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Day.cs" />
+    <Compile Include="oDay.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,7 +60,7 @@
     </Compile>
     <Compile Include="oTicket.cs" />
     <Compile Include="oWindow.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="oProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>

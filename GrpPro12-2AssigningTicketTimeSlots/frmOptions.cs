@@ -30,7 +30,6 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             dtpEndTime.Value = main.today.End;
             numMinutes.Value = main.today.WindowSize.Minutes;
             numRidersPer.Value = main.today.MaxRiders;
-
         }
 
 
@@ -42,10 +41,17 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
-            Day newDay = new Day(dtpStartTime.Value, dtpEndTime.Value, numMinutes.Text, (int)numRidersPer.Value, (int)numFirstTickets.Value);
+            oDay newDay = new oDay(dtpStartTime.Value, dtpEndTime.Value, numMinutes.Text, (int)numRidersPer.Value, (int)numFirstTickets.Value);
             Main.today = newDay;
+            Main.Show();
             Close();
         }
         #endregion
+
+        private void frmOptions_Load(object sender, EventArgs e)
+        {
+            //hide the main form upon load.
+            Main.Hide();
+        }
     }
 }

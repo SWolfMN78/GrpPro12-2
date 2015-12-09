@@ -12,11 +12,13 @@ namespace GrpPro12_2AssigningTicketTimeSlots
 {
     public partial class frmMain : Form
     {
+        
         public frmMain()
         {
             InitializeComponent();
         }
-        public Day today;
+
+        public oDay today;
 
         #region Event Handlers
         /// <summary>
@@ -28,7 +30,8 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         {
             //this method call handles starting the timer.
             tmrClock.Start();
-            today = new Day();
+            today = new oDay();
+            
         }
         
         /// <summary>
@@ -39,7 +42,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         private void updateTime(object sender, EventArgs e)
         {
             //This method will display the time in the mainform window.
-            this.Text = $"{DateTime.Now.ToString("hh:mm:ss tt")}  {today.Open}";
+            this.Text = DateTime.Now.ToString("hh:mm:ss tt") + " " + today.Open;
             updateListbox();
             today.CheckWindows();
             updateButton();
@@ -52,8 +55,21 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// <param name="e"></param>
         private void btnOptions_Click(object sender, EventArgs e)
         {
-            var frmOptions = new frmOptions(this);
-            frmOptions.Show();
+            DialogResult YesNo;
+            //Display a warning to the user for when they open the Options window.
+            YesNo = MessageBox.Show("By going into the Options Settings you will lose the current tickets.  Do you want to proceed", 
+                "Options Warning!", MessageBoxButtons.OKCancel);
+
+            if (YesNo == DialogResult.OK)
+            {
+                //Load the Option window.
+                var frmOptions = new frmOptions(this);
+                frmOptions.ControlBox = false;
+                frmOptions.Show();
+            }
+            
+            
+            
         }
 
         /// <summary>
@@ -64,6 +80,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         private void btnExit_Click(object sender, EventArgs e)
         {
             Close();
+            
         }
 
         /// <summary>

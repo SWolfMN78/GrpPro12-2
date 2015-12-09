@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace GrpPro12_2AssigningTicketTimeSlots
 {
-    static class Program
+    static class oProgram
     {
         /// <summary>
         /// The main entry point for the application.
