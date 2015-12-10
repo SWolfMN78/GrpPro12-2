@@ -31,7 +31,6 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             //this method call handles starting the timer.
             tmrClock.Start();
             today = new oDay();
-            
         }
         
         /// <summary>
@@ -55,21 +54,15 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// <param name="e"></param>
         private void btnOptions_Click(object sender, EventArgs e)
         {
-            DialogResult YesNo;
             //Display a warning to the user for when they open the Options window.
-            YesNo = MessageBox.Show("By going into the Options Settings you will lose the current tickets.  Do you want to proceed", 
-                "Options Warning!", MessageBoxButtons.OKCancel);
-
-            if (YesNo == DialogResult.OK)
+            if (MessageBox.Show("By going into the Options Settings you will lose all current Tickets.  Press OK to proceed",
+             "Options Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
-                //Load the Option window.
+                 //Load the Option window.
                 var frmOptions = new frmOptions(this);
                 frmOptions.ControlBox = false;
                 frmOptions.Show();
             }
-            
-            
-            
         }
 
         /// <summary>
