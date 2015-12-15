@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -22,12 +23,25 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         public int MaxRiders { get; set; }
         public int TicketNumber { get; set; }
         public List<oTicket> PendingTickets { get; set; } 
+        public List<oTicket> CurrentRiders { get; set; }
+
+        public string riders
+        {
+            get
+            {
+                if (CurrentRiders.Count > 0)
+                {
+                    return string.Format("{0} - {1}", CurrentRiders[0].index, CurrentRiders[CurrentRiders.Count-1].index);
+                }
+                return "No current riders";
+            }
+        }
 
         public string Open
         {
             get
             {
-                if (Windows.Count > 0)
+                if (DateTime.Now.Ticks > Start.Ticks && DateTime.Now.Ticks < End.Ticks)
                 {
                     return "OPEN";
                 }
@@ -41,7 +55,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// </summary>
         public oDay()
         {
-            Start = DateTime.Parse("19:00");
+            Start = DateTime.Parse("17:00");
             End = Start.AddHours(8);
             WindowSize = TimeSpan.Parse("00:01:00");
             MaxRiders = 5;
@@ -87,6 +101,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
                 Windows.Add(new oWindow(start, MaxRiders,WindowSize.Minutes));
             }
             PendingTickets = new List<oTicket>();
+            CurrentRiders = new List<oTicket>();
             CheckWindows();
         }
 
@@ -101,11 +116,12 @@ namespace GrpPro12_2AssigningTicketTimeSlots
                 //found that the code was drilling down and removing all windows then breaking because there was nothing.
                 if (Windows.Count > 0)
                 {
+                    
                     CurrentWindow = Windows[0];
                     Windows.RemoveAt(0);
                 }
             }
-            checkTickets();
+            CheckTickets();
         }
 
         /// <summary>
@@ -143,17 +159,30 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// <summary>
         /// check to make sure that all the tickets in pending tickets have not passed their start time
         /// </summary>
-        private void checkTickets()
+        private void CheckTickets()
         {
             var tempTickets = new List<oTicket>();
+            var noLongerPending = new List<oTicket>();
             foreach (var pendingTicket in PendingTickets)
             {
                 if (pendingTicket.Time.Ticks > DateTime.Now.Ticks)
                 {
+
                     tempTickets.Add(pendingTicket);
                 }
+                else
+                {
+                    noLongerPending.Add(pendingTicket);
+                }
+
             }
             PendingTickets = tempTickets;
+            foreach (var currentRider in noLongerPending)
+            {
+                CurrentRiders.Add(currentRider);
+            }
+            CurrentRiders = CurrentRiders.Where(t => t.Time.Add(WindowSize).Ticks > DateTime.Now.Ticks).ToList();
         }
+
     }
 }

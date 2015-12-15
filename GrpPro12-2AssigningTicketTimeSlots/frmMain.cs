@@ -45,6 +45,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             updateListbox();
             today.CheckWindows();
             updateButton();
+            updateLabels();
         }
 
         /// <summary>
@@ -118,6 +119,13 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             {
                 btnIssueTicket.Enabled = true;
             }
+        }
+
+        private void updateLabels()
+        {
+            lblTicketsOutstanding.Text = today.PendingTickets.Count.ToString();
+            lblTicketTime.Text = today.CurrentWindow.StartTime.ToShortTimeString();
+            lblTicketCountOfGuest.Text = today.riders;
         }
         #endregion
 
