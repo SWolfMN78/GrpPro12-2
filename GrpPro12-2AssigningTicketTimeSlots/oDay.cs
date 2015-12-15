@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -22,12 +23,25 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         public int MaxRiders { get; set; }
         public int TicketNumber { get; set; }
         public List<oTicket> PendingTickets { get; set; } 
+        public List<oTicket> CurrentRiders { get; set; }
+
+        public string riders
+        {
+            get
+            {
+                if (CurrentRiders.Count > 0)
+                {
+                    return string.Format("{0} - {1}", CurrentRiders[0].index, CurrentRiders[CurrentRiders.Count-1].index);
+                }
+                return "No current riders";
+            }
+        }
 
         public string Open
         {
             get
             {
-                if (Windows.Count > 0)
+                if (DateTime.Now.Ticks > Start.Ticks && DateTime.Now.Ticks < End.Ticks)
                 {
                     return "OPEN";
                 }
@@ -87,6 +101,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
                 Windows.Add(new oWindow(start, MaxRiders,WindowSize.Minutes));
             }
             PendingTickets = new List<oTicket>();
+            CurrentRiders = new List<oTicket>();
             CheckWindows();
         }
 
@@ -101,6 +116,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
                 //found that the code was drilling down and removing all windows then breaking because there was nothing.
                 if (Windows.Count > 0)
                 {
+                    
                     CurrentWindow = Windows[0];
                     Windows.RemoveAt(0);
                 }
@@ -150,10 +166,26 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             {
                 if (pendingTicket.Time.Ticks > DateTime.Now.Ticks)
                 {
+
                     tempTickets.Add(pendingTicket);
+                }
+                else
+                {
+                    CurrentRiders.Add(pendingTicket);
                 }
             }
             PendingTickets = tempTickets;
+            tempTickets.Clear();
+
+            foreach (var currentRider in CurrentRiders)
+            {
+                if (currentRider.Time.Ticks > DateTime.Now.Add(WindowSize).Ticks)
+                {
+                    PendingTickets.Add(currentRider);
+                }
+            }
+            CurrentRiders = tempTickets;
         }
+
     }
 }
