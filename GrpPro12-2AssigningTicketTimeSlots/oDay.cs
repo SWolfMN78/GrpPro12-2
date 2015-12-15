@@ -55,7 +55,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// </summary>
         public oDay()
         {
-            Start = DateTime.Parse("19:00");
+            Start = DateTime.Parse("17:00");
             End = Start.AddHours(8);
             WindowSize = TimeSpan.Parse("00:01:00");
             MaxRiders = 5;
@@ -121,7 +121,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
                     Windows.RemoveAt(0);
                 }
             }
-            checkTickets();
+            CheckTickets();
         }
 
         /// <summary>
@@ -159,9 +159,10 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// <summary>
         /// check to make sure that all the tickets in pending tickets have not passed their start time
         /// </summary>
-        private void checkTickets()
+        private void CheckTickets()
         {
             var tempTickets = new List<oTicket>();
+            var noLongerPending = new List<oTicket>();
             foreach (var pendingTicket in PendingTickets)
             {
                 if (pendingTicket.Time.Ticks > DateTime.Now.Ticks)
@@ -171,20 +172,16 @@ namespace GrpPro12_2AssigningTicketTimeSlots
                 }
                 else
                 {
-                    CurrentRiders.Add(pendingTicket);
+                    noLongerPending.Add(pendingTicket);
                 }
+
             }
             PendingTickets = tempTickets;
-            tempTickets.Clear();
-
-            foreach (var currentRider in CurrentRiders)
+            foreach (var currentRider in noLongerPending)
             {
-                if (currentRider.Time.Ticks > DateTime.Now.Add(WindowSize).Ticks)
-                {
-                    PendingTickets.Add(currentRider);
-                }
+                CurrentRiders.Add(currentRider);
             }
-            CurrentRiders = tempTickets;
+            CurrentRiders = CurrentRiders.Where(t => t.Time.Add(WindowSize).Ticks > DateTime.Now.Ticks).ToList();
         }
 
     }
