@@ -41,10 +41,18 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
+            //inserted validation to insure that times cannot come before the start.
+            if (dtpEndTime.Value.TimeOfDay < dtpStartTime.Value.TimeOfDay)
+            {
+                MessageBox.Show("The endtime should not come before the Start Time.  Please adjust.", "Time Error");
+            }
+            else
+            {
             oDay newDay = new oDay(dtpStartTime.Value, dtpEndTime.Value, numMinutes.Text, (int)numRidersPer.Value, (int)numFirstTickets.Value);
             Main.today = newDay;
             Main.Show();
             Close();
+            }
         }
         #endregion
 

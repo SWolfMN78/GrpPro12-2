@@ -28,7 +28,8 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("Ticket {0}: {1}",index,Time); 
+            //Adjusted the time to be a AM/PM instead of Military
+            return string.Format("Ticket {0}: {1}",index,Time.ToShortTimeString()); 
         }
     }
 }

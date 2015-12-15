@@ -98,9 +98,12 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             if (Windows.Count > 0 && (CurrentWindow == null || CurrentWindow.Queue.Count <= 0 || CurrentWindow.StartTime.Ticks <= DateTime.Now.Ticks))
             {
                 removeOldWindows();
-                CurrentWindow = Windows[0];
-                Windows.RemoveAt(0);
-                
+                //found that the code was drilling down and removing all windows then breaking because there was nothing.
+                if (Windows.Count > 0)
+                {
+                    CurrentWindow = Windows[0];
+                    Windows.RemoveAt(0);
+                }
             }
             checkTickets();
         }
