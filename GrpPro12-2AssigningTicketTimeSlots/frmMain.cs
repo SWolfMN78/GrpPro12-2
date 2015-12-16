@@ -30,7 +30,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         {
             //this method call handles starting the timer.
             tmrClock.Start();
-            today = new oDay();
+            today = new Day();
             btnIssueTicket.Focus();
         }
         
