@@ -123,8 +123,17 @@ namespace GrpPro12_2AssigningTicketTimeSlots
 
         private void updateLabels()
         {
+            
             lblTicketsOutstanding.Text = today.PendingTickets.Count.ToString();
-            lblTicketTime.Text = today.CurrentWindow.StartTime.ToShortTimeString();
+            if (today.CurrentWindow != null)
+            {
+                lblTicketTime.Text = today.CurrentWindow.StartTime.ToShortTimeString();
+            }
+            else
+            {
+                lblTicketTime.Text = "No available ticket time, please wait!";
+            }
+            
             lblTicketCountOfGuest.Text = today.riders;
         }
         #endregion

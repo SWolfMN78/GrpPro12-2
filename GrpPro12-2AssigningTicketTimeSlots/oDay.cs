@@ -41,7 +41,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         {
             get
             {
-                if (DateTime.Now.Ticks > Start.Ticks && DateTime.Now.Ticks < End.Ticks)
+                if (DateTime.Now.Ticks > Start.Ticks && DateTime.Now.Ticks < End.Ticks && Windows.Count > 0)
                 {
                     return "OPEN";
                 }
@@ -81,7 +81,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             SetWindows();
             //after the total full windows have been counted
             //this reduces the end time by any remainder
-            End = Start.AddMinutes(Windows.Count*int.Parse(windowSize));
+            
             TicketNumber = startingTicket;
         }
 
