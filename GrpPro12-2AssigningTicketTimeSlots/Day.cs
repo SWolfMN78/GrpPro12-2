@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
@@ -12,26 +12,25 @@ namespace GrpPro12_2AssigningTicketTimeSlots
     /// Class defining a group of windows in a day
     /// holds the open property to dictace the titlebar
     /// </summary>
-    public class oDay
+    public class Day
     {
-        private string open;
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
-        public List<oWindow> Windows { get; private set; }
+        public List<Window> Windows { get; private set; }
         public TimeSpan WindowSize { get; set; }
-        public oWindow CurrentWindow { get; set; }
+        public Window CurrentWindow { get; set; }
         public int MaxRiders { get; set; }
         public int TicketNumber { get; set; }
-        public List<oTicket> PendingTickets { get; set; } 
-        public List<oTicket> CurrentRiders { get; set; }
+        public List<Ticket> PendingTickets { get; set; } 
+        public List<Ticket> CurrentRiders { get; set; }
 
-        public string riders
+        public string Riders
         {
             get
             {
                 if (CurrentRiders.Count > 0)
                 {
-                    return string.Format("{0} - {1}", CurrentRiders[0].index, CurrentRiders[CurrentRiders.Count-1].index);
+                    return string.Format("{0} - {1}", CurrentRiders[0].Index, CurrentRiders[CurrentRiders.Count-1].Index);
                 }
                 return "No current riders";
             }
@@ -53,7 +52,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// Default constructor sets open at 9am and close 8 hours later
         /// the window size is 5 minutes creating 96 windows
         /// </summary>
-        public oDay()
+        public Day()
         {
             Start = DateTime.Parse("17:00");
             End = Start.AddHours(8);
@@ -72,7 +71,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// <param name="start"></param>
         /// <param name="end"></param>
         /// <param name="windowSize"></param>
-        public oDay(DateTime start, DateTime end, string windowSize, int maxRiders, int startingTicket)
+        public Day(DateTime start, DateTime end, string windowSize, int maxRiders, int startingTicket)
         {
             Start = start;
             End = end;
@@ -91,17 +90,17 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// </summary>
         private void SetWindows()
         {
-            this.Windows = new List<oWindow>();
+            this.Windows = new List<Window>();
             TimeSpan minutes = End.Subtract(Start);
             int minutesOpen = minutes.Hours * 60;
             int windowNumber = (minutesOpen/WindowSize.Minutes);
             for (int i = 0; i < windowNumber; i++)
             {
                 DateTime start = Start.AddMinutes(WindowSize.Minutes*i);
-                Windows.Add(new oWindow(start, MaxRiders,WindowSize.Minutes));
+                Windows.Add(new Window(start, MaxRiders,WindowSize.Minutes));
             }
-            PendingTickets = new List<oTicket>();
-            CurrentRiders = new List<oTicket>();
+            PendingTickets = new List<Ticket>();
+            CurrentRiders = new List<Ticket>();
             CheckWindows();
         }
 
@@ -112,7 +111,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         {
             if (Windows.Count > 0 && (CurrentWindow == null || CurrentWindow.Queue.Count <= 0 || CurrentWindow.StartTime.Ticks <= DateTime.Now.Ticks))
             {
-                removeOldWindows();
+                RemoveOldWindows();
                 //found that the code was drilling down and removing all windows then breaking because there was nothing.
                 if (Windows.Count > 0)
                 {
@@ -127,17 +126,17 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// <summary>
         /// if the windows have pased the end time, remove them from the list of windows
         /// </summary>
-        private void removeOldWindows()
+        private void RemoveOldWindows()
         {
-            List<oWindow> updatedOWindows = new List<oWindow>();
-            foreach (var oWindow in Windows)
+            List<Window> updatedWindows = new List<Window>();
+            foreach (var Window in Windows)
             {
-                if (oWindow.StartTime.Ticks > DateTime.Now.Ticks)
+                if (Window.StartTime.Ticks > DateTime.Now.Ticks)
                 {
-                    updatedOWindows.Add(oWindow);
+                    updatedWindows.Add(Window);
                 }
             }
-            Windows = updatedOWindows;
+            Windows = updatedWindows;
         }
 
         /// <summary>
@@ -148,7 +147,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         {
             if (CurrentWindow.Queue.Count > 0)
             {
-                CurrentWindow.Queue[0].index = TicketNumber;
+                CurrentWindow.Queue[0].Index = TicketNumber;
                 PendingTickets.Add(CurrentWindow.Queue[0]);
                 TicketNumber ++;
                 CurrentWindow.Queue.RemoveAt(0);
@@ -161,8 +160,8 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// </summary>
         private void CheckTickets()
         {
-            var tempTickets = new List<oTicket>();
-            var noLongerPending = new List<oTicket>();
+            var tempTickets = new List<Ticket>();
+            var noLongerPending = new List<Ticket>();
             foreach (var pendingTicket in PendingTickets)
             {
                 if (pendingTicket.Time.Ticks > DateTime.Now.Ticks)
