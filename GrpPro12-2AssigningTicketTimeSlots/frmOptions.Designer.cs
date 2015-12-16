@@ -108,7 +108,7 @@
             this.dtpStartTime.Name = "dtpStartTime";
             this.dtpStartTime.ShowUpDown = true;
             this.dtpStartTime.Size = new System.Drawing.Size(128, 20);
-            this.dtpStartTime.TabIndex = 11;
+            this.dtpStartTime.TabIndex = 2;
             this.dtpStartTime.Value = new System.DateTime(2015, 11, 30, 13, 24, 55, 0);
             // 
             // dtpEndTime
@@ -119,21 +119,21 @@
             this.dtpEndTime.Name = "dtpEndTime";
             this.dtpEndTime.ShowUpDown = true;
             this.dtpEndTime.Size = new System.Drawing.Size(128, 20);
-            this.dtpEndTime.TabIndex = 12;
+            this.dtpEndTime.TabIndex = 3;
             this.dtpEndTime.Value = new System.DateTime(2015, 11, 30, 13, 24, 55, 0);
             // 
             // numRidersPer
             // 
             this.numRidersPer.Location = new System.Drawing.Point(128, 69);
-            this.numRidersPer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.numRidersPer.Margin = new System.Windows.Forms.Padding(2);
             this.numRidersPer.Name = "numRidersPer";
             this.numRidersPer.Size = new System.Drawing.Size(126, 20);
-            this.numRidersPer.TabIndex = 13;
+            this.numRidersPer.TabIndex = 1;
             // 
             // numMinutes
             // 
             this.numMinutes.Location = new System.Drawing.Point(128, 29);
-            this.numMinutes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.numMinutes.Margin = new System.Windows.Forms.Padding(2);
             this.numMinutes.Minimum = new decimal(new int[] {
             1,
             0,
@@ -141,7 +141,7 @@
             0});
             this.numMinutes.Name = "numMinutes";
             this.numMinutes.Size = new System.Drawing.Size(126, 20);
-            this.numMinutes.TabIndex = 14;
+            this.numMinutes.TabIndex = 0;
             this.numMinutes.Value = new decimal(new int[] {
             1,
             0,
@@ -151,7 +151,7 @@
             // numFirstTickets
             // 
             this.numFirstTickets.Location = new System.Drawing.Point(128, 189);
-            this.numFirstTickets.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.numFirstTickets.Margin = new System.Windows.Forms.Padding(2);
             this.numFirstTickets.Minimum = new decimal(new int[] {
             1,
             0,
@@ -159,7 +159,7 @@
             0});
             this.numFirstTickets.Name = "numFirstTickets";
             this.numFirstTickets.Size = new System.Drawing.Size(126, 20);
-            this.numFirstTickets.TabIndex = 15;
+            this.numFirstTickets.TabIndex = 4;
             this.numFirstTickets.Value = new decimal(new int[] {
             1,
             0,

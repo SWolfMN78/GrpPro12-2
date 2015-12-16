@@ -31,6 +31,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             //this method call handles starting the timer.
             tmrClock.Start();
             today = new oDay();
+            btnIssueTicket.Focus();
         }
         
         /// <summary>
@@ -73,8 +74,8 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// <param name="e"></param>
         private void btnExit_Click(object sender, EventArgs e)
         {
+            //close the form when done.
             Close();
-            
         }
 
         /// <summary>

@@ -113,7 +113,7 @@
             this.btnIssueTicket.Location = new System.Drawing.Point(16, 96);
             this.btnIssueTicket.Name = "btnIssueTicket";
             this.btnIssueTicket.Size = new System.Drawing.Size(112, 23);
-            this.btnIssueTicket.TabIndex = 6;
+            this.btnIssueTicket.TabIndex = 0;
             this.btnIssueTicket.Text = "Issue Ticket";
             this.btnIssueTicket.UseVisualStyleBackColor = true;
             this.btnIssueTicket.Click += new System.EventHandler(this.btnIssueTicket_Click);
@@ -168,6 +168,7 @@
             this.lstTicketDisplayInfo.Name = "lstTicketDisplayInfo";
             this.lstTicketDisplayInfo.Size = new System.Drawing.Size(280, 147);
             this.lstTicketDisplayInfo.TabIndex = 8;
+            this.lstTicketDisplayInfo.TabStop = false;
             // 
             // tmrClock
             // 
