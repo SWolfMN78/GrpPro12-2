@@ -4,10 +4,7 @@ using System.Linq;
 
 namespace GrpPro12_2AssigningTicketTimeSlots.Domain
 {
-    /// <summary>
-    /// Class defining a group of windows in a day
-    /// holds the open property to dictace the titlebar
-    /// </summary>
+
     public class RidingDay
     {
         public TimeSpan Start { get; private set; }
@@ -25,40 +22,13 @@ namespace GrpPro12_2AssigningTicketTimeSlots.Domain
         private const int DefaultWindowSize = 1;
         private const int DefaultMaxRiders = 5;
         private const int DefaultStartingTicketNumber = 1;
+        
 
-        public string Riders
-        {
-            get
-            {
-                if (CurrentRiders.Count > 0)
-                {
-                    return $"{CurrentRiders[0].index} - {CurrentRiders[CurrentRiders.Count - 1].index}";
-                }
-                return "No current riders";
-            }
-        }
-
-        public DayStatus Status
-        {
-            get
-            {
-                if (DateTime.Now.TimeOfDay.Ticks > Start.Ticks && DateTime.Now.TimeOfDay.Ticks < End.Ticks && Windows.Count > 0)
-                {
-                    return DayStatus.Open;
-                }
-                return DayStatus.Closed;
-            }
-        }
-
-        /// <summary>
-        /// Default constructor sets open at 9am and close 8 hours later
-        /// the window size is 5 minutes creating 96 windows
-        /// </summary>
         public RidingDay
             (
-                int start = DefaultStartHour, 
-                int end = DefaultEndHour, 
-                int windowSize = DefaultWindowSize, 
+                int start = DefaultStartHour,
+                int end = DefaultEndHour,
+                int windowSize = DefaultWindowSize,
                 int maxRiders = DefaultMaxRiders,
                 int startTicketNumber = DefaultStartingTicketNumber
             )
@@ -74,12 +44,15 @@ namespace GrpPro12_2AssigningTicketTimeSlots.Domain
 
             InitializeWindows();
         }
-        
 
-        /// <summary>
-        /// create the list of windows required for a day and update the end time to be
-        /// end at the end of the last windows (this is probably needless)
-        /// </summary>
+
+        public DayStatus GetStatus(DateTime currentDateTime)
+        {
+            var open =  currentDateTime.TimeOfDay > Start && currentDateTime.TimeOfDay < End && Windows.Count > 0;
+            return open ? DayStatus.Open : DayStatus.Closed;
+        }
+
+        
         private void InitializeWindows()
         {
             var windows = new List<RidingWindow>();
@@ -93,87 +66,41 @@ namespace GrpPro12_2AssigningTicketTimeSlots.Domain
             }
 
             Windows = windows;
-       
-            CheckWindows();
         }
 
-        /// <summary>
-        /// check that the windows have not expired
-        /// </summary>
-        public void CheckWindows()
+        public void IssueTicket(DateTime currentDateTime)
         {
-            if (Windows.Count > 0 && (CurrentRidingWindow == null || CurrentRidingWindow.Queue.Count <= 0 || CurrentRidingWindow.StartTime.Ticks <= DateTime.Now.TimeOfDay.Ticks))
-            {
-                RemoveOldWindows();
-                //found that the code was drilling down and removing all windows then breaking because there was nothing.
-                if (Windows.Count > 0)
-                {
-                    CurrentRidingWindow = Windows[0];
-                    Windows.RemoveAt(0);
-                }
-            }
-            CheckTickets();
+            Refresh(currentDateTime);
+
+            var ticket = CurrentRidingWindow.RiderTickets.FirstOrDefault();
+            if (ticket == null) return;
+
+            ticket.Number = TicketNumber;
+
+            PendingTickets.Add(ticket);
+            CurrentRidingWindow.RiderTickets.Remove(ticket);
+            TicketNumber++;
         }
 
-        /// <summary>
-        /// if the windows have pased the end time, remove them from the list of windows
-        /// </summary>
-        private void RemoveOldWindows()
+
+        public void Refresh(DateTime currentDateTime)
         {
-            List<RidingWindow> updatedOWindows = new List<RidingWindow>();
-            foreach (var window in Windows)
+            var updatedWindows = Windows.Where(window => window.StartTime.Ticks > currentDateTime.TimeOfDay.Ticks).ToList();
+            Windows = updatedWindows;
+
+            if (Windows.Count > 0 &&
+                (CurrentRidingWindow == null || CurrentRidingWindow.RiderTickets.Count <= 0 ||
+                CurrentRidingWindow.StartTime.Ticks <= currentDateTime.TimeOfDay.Ticks))
             {
-                if (window.StartTime.Ticks > DateTime.Now.TimeOfDay.Ticks)
-                {
-                    updatedOWindows.Add(window);
-                }
+                CurrentRidingWindow = Windows[0];
+                Windows.RemoveAt(0);
             }
-            Windows = updatedOWindows;
+
+            var activeTickets = PendingTickets.Where(t => t.Time <= currentDateTime.TimeOfDay).ToList();
+            PendingTickets.RemoveAll(t => t.Time <= currentDateTime.TimeOfDay);
+
+            CurrentRiders.AddRange(activeTickets);
+            CurrentRiders = CurrentRiders.Where(t => t.Time.Add(TimeSpan.FromMinutes(WindowSize)) > currentDateTime.TimeOfDay).ToList();
         }
-
-        /// <summary>
-        /// remove a ticket from the current window's ticket queue
-        /// and provide it the correct ticket ID
-        /// </summary>
-        public void IssueTicket()
-        {
-            if (CurrentRidingWindow.Queue.Count > 0)
-            {
-                CurrentRidingWindow.Queue[0].index = TicketNumber;
-                PendingTickets.Add(CurrentRidingWindow.Queue[0]);
-                TicketNumber ++;
-                CurrentRidingWindow.Queue.RemoveAt(0);
-                CheckWindows();
-            }
-        }
-
-        /// <summary>
-        /// check to make sure that all the tickets in pending tickets have not passed their start time
-        /// </summary>
-        private void CheckTickets()
-        {
-            var tempTickets = new List<Ticket>();
-            var noLongerPending = new List<Ticket>();
-            foreach (var pendingTicket in PendingTickets)
-            {
-                if (pendingTicket.Time.Ticks > DateTime.Now.TimeOfDay.Ticks)
-                {
-
-                    tempTickets.Add(pendingTicket);
-                }
-                else
-                {
-                    noLongerPending.Add(pendingTicket);
-                }
-
-            }
-            PendingTickets = tempTickets;
-            foreach (var currentRider in noLongerPending)
-            {
-                CurrentRiders.Add(currentRider);
-            }
-            CurrentRiders = CurrentRiders.Where(t => t.Time.Add(TimeSpan.FromMinutes(WindowSize)).Ticks > DateTime.Now.TimeOfDay.Ticks).ToList();
-        }
-
     }
 }

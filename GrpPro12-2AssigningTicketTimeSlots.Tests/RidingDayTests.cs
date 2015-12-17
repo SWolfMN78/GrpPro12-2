@@ -23,13 +23,14 @@ namespace GrpPro12_2AssigningTicketTimeSlots.Tests
         public void ShouldGiveTicket()
         {
             var sut = new RidingDay();
-            sut.IssueTicket();
+            sut.IssueTicket(new DateTime(2000, 1, 1, 13, 0, 0));
+            
 
             Assert.AreEqual(2,sut.TicketNumber);
             Assert.AreEqual(1, sut.PendingTickets.Count);
         }
 
-        
+
 
     }
 }

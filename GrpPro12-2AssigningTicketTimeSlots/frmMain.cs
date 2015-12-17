@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using GrpPro12_2AssigningTicketTimeSlots.Domain;
 
@@ -22,81 +15,50 @@ namespace GrpPro12_2AssigningTicketTimeSlots
 
         public RidingDay Today;
 
-        #region Event Handlers
-        /// <summary>
-        /// start the timer and create a new day
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Form1_Load(object sender, EventArgs e)
+        private void FormLoad(object sender, EventArgs e)
         {
-            //this method call handles starting the timer.
             tmrClock.Start();
             btnIssueTicket.Focus();
         }
         
-        /// <summary>
-        /// Update the tiem every second, check the windows and update the button
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void updateTime(object sender, EventArgs e)
+        private void UpdateTime(object sender, EventArgs e)
         {
             //This method will display the time in the mainform window.
-            this.Text = DateTime.Now.ToString("hh:mm:ss tt") + " " + Today.Status;
-            updateListbox();
-            Today.CheckWindows();
-            updateButton();
-            updateLabels();
+            var status = Today.GetStatus(DateTime.Now);
+
+            Text = DateTime.Now.ToString("hh:mm:ss tt") + " " + Enum.GetName(typeof(DayStatus),status);
+            UpdateListbox();
+            Today.Refresh(DateTime.Now);
+            UpdateButton();
+            UpdateLabels();
         }
 
-        /// <summary>
-        /// Open the button window and pass the main form instance to it
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnOptions_Click(object sender, EventArgs e)
+        private void OptionsButtonClick(object sender, EventArgs e)
         {
-            //Display a warning to the user for when they open the Options window.
-            if (MessageBox.Show("By going into the Options Settings you will lose all current Tickets.  Press OK to proceed",
-             "Options Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
-            {
-                 //Load the Option window.
-                var frmOptions = new frmOptions(this);
-                frmOptions.ControlBox = false;
-                frmOptions.Show();
-            }
+            var dialogResult = MessageBox.Show(
+                "By going into the Options Settings you will lose all current Tickets.  Press OK to proceed",
+                "Options Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+            if (dialogResult != DialogResult.OK) return;
+
+            var frmOptions = new frmOptions(this) { StartPosition = FormStartPosition.CenterParent };
+            frmOptions.ShowDialog(this);
         }
 
-        /// <summary>
-        /// close the form
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnExit_Click(object sender, EventArgs e)
+        private void ExitButtonClick(object sender, EventArgs e)
         {
-            //close the form when done.
             Close();
         }
 
-        /// <summary>
-        /// give out a ticket and update the listbox
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnIssueTicket_Click(object sender, EventArgs e)
-        {
-            Today.IssueTicket();
-            updateListbox();
-        }
-        #endregion
 
-        #region Form Updates
-        /// <summary>
-        /// reloads the listbox when the items collection is different than the 
-        /// pending tickets
-        /// </summary>
-        private void updateListbox()
+        private void IssueTicketButtonClick(object sender, EventArgs e)
+        {
+            Today.IssueTicket(DateTime.Now);
+            UpdateListbox();
+        }
+
+
+        private void UpdateListbox()
         {
             if (lstTicketDisplayInfo.Items.Count != Today.PendingTickets.Count)
             {
@@ -108,22 +70,13 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             }
         }
 
-        /// <summary>
-        /// checks if the ride is open and disables the button if not
-        /// </summary>
-        private void updateButton()
+        private void UpdateButton()
         {
-            if (Today.Status == DayStatus.Closed)
-            {
-                btnIssueTicket.Enabled = false;
-            }
-            if (Today.Status == DayStatus.Open)
-            {
-                btnIssueTicket.Enabled = true;
-            }
+            var status = Today.GetStatus(DateTime.Now);
+            btnIssueTicket.Enabled = status != DayStatus.Closed;
         }
 
-        private void updateLabels()
+        private void UpdateLabels()
         {
             
             lblTicketsOutstanding.Text = Today.PendingTickets.Count.ToString();
@@ -136,11 +89,8 @@ namespace GrpPro12_2AssigningTicketTimeSlots
                 lblTicketTime.Text = "No available ticket time, please wait!";
             }
             
-            lblTicketCountOfGuest.Text = Today.Riders;
+            lblTicketCountOfGuest.Text = Today.CurrentRiders.Count > 0 ? $"{Today.CurrentRiders[0].Number} - {Today.CurrentRiders[Today.CurrentRiders.Count - 1].Number}" : "No current riders";
         }
-        #endregion
 
-
-        
     }
 }

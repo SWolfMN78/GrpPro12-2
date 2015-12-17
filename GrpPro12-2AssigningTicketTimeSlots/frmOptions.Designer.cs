@@ -184,12 +184,13 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmOptions";
             this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "Options";
-            this.Load += new System.EventHandler(this.frmOptions_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numRidersPer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMinutes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numFirstTickets)).EndInit();

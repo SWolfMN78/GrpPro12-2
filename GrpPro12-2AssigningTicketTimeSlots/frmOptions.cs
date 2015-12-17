@@ -54,12 +54,5 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             }
         }
 
-        private void frmOptions_Load(object sender, EventArgs e)
-        {
-
-
-            //hide the main form upon load.
-            Main.Hide();
-        }
     }
 }
