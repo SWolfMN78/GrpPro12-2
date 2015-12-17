@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace GrpPro12_2AssigningTicketTimeSlots
+namespace GrpPro12_2AssigningTicketTimeSlots.Domain
 {
     //Class object that will be what is composed of a ticket.
-    public class oTicket
+    public class Ticket
     {
         public DateTime Time { get; set; }
 
@@ -17,7 +13,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// constructor takes in the time at rider can ride
         /// </summary>
         /// <param name="time"></param>
-        public oTicket(DateTime time)
+        public Ticket(DateTime time)
         {
             Time = time;
         }

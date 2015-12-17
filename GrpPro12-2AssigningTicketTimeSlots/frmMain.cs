@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using GrpPro12_2AssigningTicketTimeSlots.Domain;
 
 namespace GrpPro12_2AssigningTicketTimeSlots
 {
@@ -18,7 +19,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             InitializeComponent();
         }
 
-        public oDay today;
+        public RidingDay today;
 
         #region Event Handlers
         /// <summary>
@@ -30,7 +31,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         {
             //this method call handles starting the timer.
             tmrClock.Start();
-            today = new oDay();
+            today = new RidingDay();
             btnIssueTicket.Focus();
         }
         
@@ -126,9 +127,9 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         {
             
             lblTicketsOutstanding.Text = today.PendingTickets.Count.ToString();
-            if (today.CurrentWindow != null)
+            if (today.CurrentRidingWindow != null)
             {
-                lblTicketTime.Text = today.CurrentWindow.StartTime.ToShortTimeString();
+                lblTicketTime.Text = today.CurrentRidingWindow.StartTime.ToShortTimeString();
             }
             else
             {

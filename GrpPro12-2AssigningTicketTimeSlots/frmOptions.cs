@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using GrpPro12_2AssigningTicketTimeSlots.Domain;
 
 namespace GrpPro12_2AssigningTicketTimeSlots
 {
@@ -48,7 +42,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             }
             else
             {
-            oDay newDay = new oDay(dtpStartTime.Value, dtpEndTime.Value, numMinutes.Text, (int)numRidersPer.Value, (int)numFirstTickets.Value);
+            RidingDay newDay = new RidingDay(dtpStartTime.Value, dtpEndTime.Value, numMinutes.Text, (int)numRidersPer.Value, (int)numFirstTickets.Value);
             Main.today = newDay;
             Main.Show();
             Close();

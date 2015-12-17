@@ -1,31 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace GrpPro12_2AssigningTicketTimeSlots
+namespace GrpPro12_2AssigningTicketTimeSlots.Domain
 {
     /// <summary>
     /// Depicts a windw that a ride can issue tickets for
     /// </summary>
-    public class oWindow
+    public class RidingWindow
     {
         public DateTime StartTime { get; private set; }
         public int Duration { get; private set; }
         public int MaxRiders { get; private set; }
-        public List<oTicket> Queue {get; set; }
+        public List<Ticket> Queue {get; set; }
 
         /// <summary>
         /// generates a defauld window with a starttime of
         /// now, a MaxRiders of 5, and a duration of 1 minutes
         /// </summary>
-        public oWindow()
+        public RidingWindow()
         {
             StartTime = DateTime.Now;
             Duration = 1;
             MaxRiders = 5;
-            Queue = new List<oTicket>(5);
+            Queue = new List<Ticket>(5);
             loadTickets();
         }
         
@@ -35,12 +32,12 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// <param name="start"></param>
         /// <param name="maxTickets"></param>
         /// <param name="duration"></param>
-        public oWindow(DateTime start, int maxTickets, int duration)
+        public RidingWindow(DateTime start, int maxTickets, int duration)
         {
             StartTime = start;
             Duration = duration;
             MaxRiders = maxTickets;
-            Queue = new List<oTicket>(maxTickets);
+            Queue = new List<Ticket>(maxTickets);
             loadTickets();
         }     
 
@@ -51,7 +48,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         {
             for (int i = 0; i < MaxRiders; i++)
             {
-                Queue.Add(new oTicket(StartTime));
+                Queue.Add(new Ticket(StartTime));
             }
         }
         
