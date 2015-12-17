@@ -16,10 +16,11 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         
         public frmMain()
         {
+            Today = new RidingDay();
             InitializeComponent();
         }
 
-        public RidingDay today;
+        public RidingDay Today;
 
         #region Event Handlers
         /// <summary>
@@ -31,7 +32,6 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         {
             //this method call handles starting the timer.
             tmrClock.Start();
-            today = new RidingDay();
             btnIssueTicket.Focus();
         }
         
@@ -43,9 +43,9 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         private void updateTime(object sender, EventArgs e)
         {
             //This method will display the time in the mainform window.
-            this.Text = DateTime.Now.ToString("hh:mm:ss tt") + " " + today.Open;
+            this.Text = DateTime.Now.ToString("hh:mm:ss tt") + " " + Today.Status;
             updateListbox();
-            today.CheckWindows();
+            Today.CheckWindows();
             updateButton();
             updateLabels();
         }
@@ -86,7 +86,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// <param name="e"></param>
         private void btnIssueTicket_Click(object sender, EventArgs e)
         {
-            today.GiveTicket();
+            Today.GiveTicket();
             updateListbox();
         }
         #endregion
@@ -98,10 +98,10 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// </summary>
         private void updateListbox()
         {
-            if (lstTicketDisplayInfo.Items.Count != today.PendingTickets.Count)
+            if (lstTicketDisplayInfo.Items.Count != Today.PendingTickets.Count)
             {
                 lstTicketDisplayInfo.Items.Clear();
-                foreach (var pendingTicket in today.PendingTickets)
+                foreach (var pendingTicket in Today.PendingTickets)
                 {
                     lstTicketDisplayInfo.Items.Add(pendingTicket);
                 }
@@ -113,11 +113,11 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// </summary>
         private void updateButton()
         {
-            if (today.Open == "CLOSED")
+            if (Today.Status == DayStatus.Closed)
             {
                 btnIssueTicket.Enabled = false;
             }
-            if (today.Open == "OPEN")
+            if (Today.Status == DayStatus.Open)
             {
                 btnIssueTicket.Enabled = true;
             }
@@ -126,17 +126,17 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         private void updateLabels()
         {
             
-            lblTicketsOutstanding.Text = today.PendingTickets.Count.ToString();
-            if (today.CurrentRidingWindow != null)
+            lblTicketsOutstanding.Text = Today.PendingTickets.Count.ToString();
+            if (Today.CurrentRidingWindow != null)
             {
-                lblTicketTime.Text = today.CurrentRidingWindow.StartTime.ToShortTimeString();
+                lblTicketTime.Text = Today.CurrentRidingWindow.StartTime.ToString();
             }
             else
             {
                 lblTicketTime.Text = "No available ticket time, please wait!";
             }
             
-            lblTicketCountOfGuest.Text = today.riders;
+            lblTicketCountOfGuest.Text = Today.Riders;
         }
         #endregion
 

@@ -5,7 +5,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots.Domain
     //Class object that will be what is composed of a ticket.
     public class Ticket
     {
-        public DateTime Time { get; set; }
+        public TimeSpan Time { get; set; }
 
         public int index { get; set; }
         
@@ -13,7 +13,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots.Domain
         /// constructor takes in the time at rider can ride
         /// </summary>
         /// <param name="time"></param>
-        public Ticket(DateTime time)
+        public Ticket(TimeSpan time)
         {
             Time = time;
         }
@@ -25,7 +25,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots.Domain
         public override string ToString()
         {
             //Adjusted the time to be a AM/PM instead of Military
-            return string.Format("Ticket {0}: {1}",index,Time.ToShortTimeString()); 
+            return $"Ticket {index}: {Time}";
         }
     }
 }

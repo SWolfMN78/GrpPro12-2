@@ -8,7 +8,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots.Domain
     /// </summary>
     public class RidingWindow
     {
-        public DateTime StartTime { get; private set; }
+        public TimeSpan StartTime { get; private set; }
         public int Duration { get; private set; }
         public int MaxRiders { get; private set; }
         public List<Ticket> Queue {get; set; }
@@ -19,7 +19,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots.Domain
         /// </summary>
         public RidingWindow()
         {
-            StartTime = DateTime.Now;
+            StartTime = DateTime.Now.TimeOfDay;
             Duration = 1;
             MaxRiders = 5;
             Queue = new List<Ticket>(5);
@@ -32,7 +32,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots.Domain
         /// <param name="start"></param>
         /// <param name="maxTickets"></param>
         /// <param name="duration"></param>
-        public RidingWindow(DateTime start, int maxTickets, int duration)
+        public RidingWindow(TimeSpan start, int maxTickets, int duration)
         {
             StartTime = start;
             Duration = duration;

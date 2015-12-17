@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\DayStatus.cs" />
     <Compile Include="Domain\RidingDay.cs" />
     <Compile Include="Domain\Ticket.cs" />
     <Compile Include="Domain\RidingWindow.cs" />

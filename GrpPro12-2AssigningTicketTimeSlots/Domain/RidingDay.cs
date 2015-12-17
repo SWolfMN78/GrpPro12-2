@@ -10,38 +10,43 @@ namespace GrpPro12_2AssigningTicketTimeSlots.Domain
     /// </summary>
     public class RidingDay
     {
-        private string open;
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
+        public TimeSpan Start { get; private set; }
+        public TimeSpan End { get; private set; }
         public List<RidingWindow> Windows { get; private set; }
-        public TimeSpan WindowSize { get; set; }
-        public RidingWindow CurrentRidingWindow { get; set; }
-        public int MaxRiders { get; set; }
-        public int TicketNumber { get; set; }
-        public List<Ticket> PendingTickets { get; set; } 
-        public List<Ticket> CurrentRiders { get; set; }
+        public int WindowSize { get; private set; }
+        public RidingWindow CurrentRidingWindow { get; private set; }
+        public int MaxRiders { get; private set; }
+        public int TicketNumber { get; private set; }
+        public List<Ticket> PendingTickets { get; private set; } 
+        public List<Ticket> CurrentRiders { get; private set; }
 
-        public string riders
+        private const int DefaultStartHour = 12;
+        private const int DefaultEndHour = 20;
+        private const int DefaultWindowSize = 1;
+        private const int DefaultMaxRiders = 5;
+        private const int DefaultStartingTicketNumber = 1;
+
+        public string Riders
         {
             get
             {
                 if (CurrentRiders.Count > 0)
                 {
-                    return string.Format("{0} - {1}", CurrentRiders[0].index, CurrentRiders[CurrentRiders.Count-1].index);
+                    return $"{CurrentRiders[0].index} - {CurrentRiders[CurrentRiders.Count - 1].index}";
                 }
                 return "No current riders";
             }
         }
 
-        public string Open
+        public DayStatus Status
         {
             get
             {
-                if (DateTime.Now.Ticks > Start.Ticks && DateTime.Now.Ticks < End.Ticks && Windows.Count > 0)
+                if (DateTime.Now.TimeOfDay.Ticks > Start.Ticks && DateTime.Now.TimeOfDay.Ticks < End.Ticks && Windows.Count > 0)
                 {
-                    return "OPEN";
+                    return DayStatus.Open;
                 }
-                return "CLOSED";
+                return DayStatus.Closed;
             }
         }
 
@@ -49,37 +54,27 @@ namespace GrpPro12_2AssigningTicketTimeSlots.Domain
         /// Default constructor sets open at 9am and close 8 hours later
         /// the window size is 5 minutes creating 96 windows
         /// </summary>
-        public RidingDay()
+        public RidingDay
+            (
+                int start = DefaultStartHour, 
+                int end = DefaultEndHour, 
+                int windowSize = DefaultWindowSize, 
+                int maxRiders = DefaultMaxRiders,
+                int startTicketNumber = DefaultStartingTicketNumber
+            )
         {
-            Start = DateTime.Parse("17:00");
-            End = Start.AddHours(8);
-            WindowSize = TimeSpan.Parse("00:01:00");
-            MaxRiders = 5;
-            TicketNumber = 1;
-
-            SetWindows();
-        }
-
-        /// <summary>
-        /// This constructor allows the programmer to input a start and end time
-        /// as well as a time for each window.  The constructor will account
-        /// for any remainder time and remove the time from the input end time
-        /// </summary>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <param name="windowSize"></param>
-        public RidingDay(DateTime start, DateTime end, string windowSize, int maxRiders, int startingTicket)
-        {
-            Start = start;
-            End = end;
-            WindowSize = TimeSpan.Parse(string.Format("00:{0}:00", windowSize));
+            Start = TimeSpan.FromHours(start);
+            End = TimeSpan.FromHours(end);
+            WindowSize = windowSize;
             MaxRiders = maxRiders;
+            TicketNumber = startTicketNumber;
+
+            PendingTickets = new List<Ticket>();
+            CurrentRiders = new List<Ticket>();
+
             SetWindows();
-            //after the total full windows have been counted
-            //this reduces the end time by any remainder
-            
-            TicketNumber = startingTicket;
         }
+        
 
         /// <summary>
         /// create the list of windows required for a day and update the end time to be
@@ -87,17 +82,18 @@ namespace GrpPro12_2AssigningTicketTimeSlots.Domain
         /// </summary>
         private void SetWindows()
         {
-            this.Windows = new List<RidingWindow>();
-            TimeSpan minutes = End.Subtract(Start);
-            int minutesOpen = minutes.Hours * 60;
-            int windowNumber = (minutesOpen/WindowSize.Minutes);
-            for (int i = 0; i < windowNumber; i++)
+            var windows = new List<RidingWindow>();
+            var duration = End.Subtract(Start).TotalMinutes;
+            var totalWindows = duration/WindowSize;
+
+            for (int i = 0; i < totalWindows; i++)
             {
-                DateTime start = Start.AddMinutes(WindowSize.Minutes*i);
-                Windows.Add(new RidingWindow(start, MaxRiders,WindowSize.Minutes));
+                var windowStartTime = Start.Add(TimeSpan.FromMinutes(WindowSize*i));
+                windows.Add(new RidingWindow(windowStartTime, MaxRiders, WindowSize));
             }
-            PendingTickets = new List<Ticket>();
-            CurrentRiders = new List<Ticket>();
+
+            Windows = windows;
+       
             CheckWindows();
         }
 
@@ -106,13 +102,12 @@ namespace GrpPro12_2AssigningTicketTimeSlots.Domain
         /// </summary>
         public void CheckWindows()
         {
-            if (Windows.Count > 0 && (CurrentRidingWindow == null || CurrentRidingWindow.Queue.Count <= 0 || CurrentRidingWindow.StartTime.Ticks <= DateTime.Now.Ticks))
+            if (Windows.Count > 0 && (CurrentRidingWindow == null || CurrentRidingWindow.Queue.Count <= 0 || CurrentRidingWindow.StartTime.Ticks <= DateTime.Now.TimeOfDay.Ticks))
             {
                 removeOldWindows();
                 //found that the code was drilling down and removing all windows then breaking because there was nothing.
                 if (Windows.Count > 0)
                 {
-                    
                     CurrentRidingWindow = Windows[0];
                     Windows.RemoveAt(0);
                 }
@@ -128,7 +123,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots.Domain
             List<RidingWindow> updatedOWindows = new List<RidingWindow>();
             foreach (var oWindow in Windows)
             {
-                if (oWindow.StartTime.Ticks > DateTime.Now.Ticks)
+                if (oWindow.StartTime.Ticks > DateTime.Now.TimeOfDay.Ticks)
                 {
                     updatedOWindows.Add(oWindow);
                 }
@@ -161,7 +156,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots.Domain
             var noLongerPending = new List<Ticket>();
             foreach (var pendingTicket in PendingTickets)
             {
-                if (pendingTicket.Time.Ticks > DateTime.Now.Ticks)
+                if (pendingTicket.Time.Ticks > DateTime.Now.TimeOfDay.Ticks)
                 {
 
                     tempTickets.Add(pendingTicket);
@@ -177,7 +172,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots.Domain
             {
                 CurrentRiders.Add(currentRider);
             }
-            CurrentRiders = CurrentRiders.Where(t => t.Time.Add(WindowSize).Ticks > DateTime.Now.Ticks).ToList();
+            CurrentRiders = CurrentRiders.Where(t => t.Time.Add(TimeSpan.FromMinutes(WindowSize)).Ticks > DateTime.Now.TimeOfDay.Ticks).ToList();
         }
 
     }
