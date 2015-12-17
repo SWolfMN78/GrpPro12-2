@@ -86,7 +86,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         /// <param name="e"></param>
         private void btnIssueTicket_Click(object sender, EventArgs e)
         {
-            Today.GiveTicket();
+            Today.IssueTicket();
             updateListbox();
         }
         #endregion

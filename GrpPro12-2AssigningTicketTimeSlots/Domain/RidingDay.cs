@@ -72,7 +72,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots.Domain
             PendingTickets = new List<Ticket>();
             CurrentRiders = new List<Ticket>();
 
-            SetWindows();
+            InitializeWindows();
         }
         
 
@@ -80,7 +80,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots.Domain
         /// create the list of windows required for a day and update the end time to be
         /// end at the end of the last windows (this is probably needless)
         /// </summary>
-        private void SetWindows()
+        private void InitializeWindows()
         {
             var windows = new List<RidingWindow>();
             var duration = End.Subtract(Start).TotalMinutes;
@@ -104,7 +104,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots.Domain
         {
             if (Windows.Count > 0 && (CurrentRidingWindow == null || CurrentRidingWindow.Queue.Count <= 0 || CurrentRidingWindow.StartTime.Ticks <= DateTime.Now.TimeOfDay.Ticks))
             {
-                removeOldWindows();
+                RemoveOldWindows();
                 //found that the code was drilling down and removing all windows then breaking because there was nothing.
                 if (Windows.Count > 0)
                 {
@@ -118,14 +118,14 @@ namespace GrpPro12_2AssigningTicketTimeSlots.Domain
         /// <summary>
         /// if the windows have pased the end time, remove them from the list of windows
         /// </summary>
-        private void removeOldWindows()
+        private void RemoveOldWindows()
         {
             List<RidingWindow> updatedOWindows = new List<RidingWindow>();
-            foreach (var oWindow in Windows)
+            foreach (var window in Windows)
             {
-                if (oWindow.StartTime.Ticks > DateTime.Now.TimeOfDay.Ticks)
+                if (window.StartTime.Ticks > DateTime.Now.TimeOfDay.Ticks)
                 {
-                    updatedOWindows.Add(oWindow);
+                    updatedOWindows.Add(window);
                 }
             }
             Windows = updatedOWindows;
@@ -135,7 +135,7 @@ namespace GrpPro12_2AssigningTicketTimeSlots.Domain
         /// remove a ticket from the current window's ticket queue
         /// and provide it the correct ticket ID
         /// </summary>
-        public void GiveTicket()
+        public void IssueTicket()
         {
             if (CurrentRidingWindow.Queue.Count > 0)
             {
