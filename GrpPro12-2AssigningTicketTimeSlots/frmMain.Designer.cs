@@ -53,7 +53,7 @@
             this.btnOptions.TabIndex = 0;
             this.btnOptions.Text = "Options";
             this.btnOptions.UseVisualStyleBackColor = true;
-            this.btnOptions.Click += new System.EventHandler(this.btnOptions_Click);
+            this.btnOptions.Click += new System.EventHandler(this.OptionsButtonClick);
             // 
             // btnExit
             // 
@@ -64,7 +64,7 @@
             this.btnExit.TabIndex = 1;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            this.btnExit.Click += new System.EventHandler(this.ExitButtonClick);
             // 
             // lblTicketCountOfGuest
             // 
@@ -116,7 +116,7 @@
             this.btnIssueTicket.TabIndex = 0;
             this.btnIssueTicket.Text = "Issue Ticket";
             this.btnIssueTicket.UseVisualStyleBackColor = true;
-            this.btnIssueTicket.Click += new System.EventHandler(this.btnIssueTicket_Click);
+            this.btnIssueTicket.Click += new System.EventHandler(this.IssueTicketButtonClick);
             // 
             // groupBox2
             // 
@@ -173,7 +173,7 @@
             // tmrClock
             // 
             this.tmrClock.Interval = 1000;
-            this.tmrClock.Tick += new System.EventHandler(this.updateTime);
+            this.tmrClock.Tick += new System.EventHandler(this.UpdateTime);
             // 
             // frmMain
             // 
@@ -186,9 +186,11 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnOptions);
+            this.MaximizeBox = false;
             this.Name = "frmMain";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.FormLoad);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

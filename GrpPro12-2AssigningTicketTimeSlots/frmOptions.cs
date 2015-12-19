@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using GrpPro12_2AssigningTicketTimeSlots.Domain;
 
 namespace GrpPro12_2AssigningTicketTimeSlots
 {
@@ -26,14 +20,12 @@ namespace GrpPro12_2AssigningTicketTimeSlots
         {
             InitializeComponent();
             Main = main;
-            dtpStartTime.Value = main.today.Start;
-            dtpEndTime.Value = main.today.End;
-            numMinutes.Value = main.today.WindowSize.Minutes;
-            numRidersPer.Value = main.today.MaxRiders;
+            dtpStartTime.Value = new DateTime(2000,1,1).Add(main.Today.Start);
+            dtpEndTime.Value = new DateTime(2000, 1, 1).Add(main.Today.End);
+            numMinutes.Value = main.Today.WindowSize;
+            numRidersPer.Value = main.Today.MaxRiders;
         }
 
-
-        #region button
         /// <summary>
         /// create a new day and pass the values from the 
         /// </summary>
@@ -48,20 +40,19 @@ namespace GrpPro12_2AssigningTicketTimeSlots
             }
             else
             {
-            oDay newDay = new oDay(dtpStartTime.Value, dtpEndTime.Value, numMinutes.Text, (int)numRidersPer.Value, (int)numFirstTickets.Value);
-            Main.today = newDay;
+                var day = new RidingDay
+                (
+                    (int)dtpStartTime.Value.TimeOfDay.TotalHours, 
+                    (int)dtpEndTime.Value.TimeOfDay.TotalHours, 
+                    (int)numMinutes.Value, 
+                    (int)numRidersPer.Value, 
+                    (int)numFirstTickets.Value
+                );
+            Main.Today = day;
             Main.Show();
             Close();
             }
         }
-        #endregion
 
-        private void frmOptions_Load(object sender, EventArgs e)
-        {
-
-
-            //hide the main form upon load.
-            Main.Hide();
-        }
     }
 }

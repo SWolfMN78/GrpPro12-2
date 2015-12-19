@@ -1,7 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpPro12-2AssigningTicketTimeSlots", "GrpPro12-2AssigningTicketTimeSlots.csproj", "{69944E2F-19F5-4067-B32E-0306F913F5BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpPro12-2AssigningTicketTimeSlots.Tests", "..\GrpPro12-2AssigningTicketTimeSlots.Tests\GrpPro12-2AssigningTicketTimeSlots.Tests.csproj", "{95E00A95-6682-4FEF-BF6B-4EF082E8FFCA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +17,10 @@ Global
 		{69944E2F-19F5-4067-B32E-0306F913F5BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69944E2F-19F5-4067-B32E-0306F913F5BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69944E2F-19F5-4067-B32E-0306F913F5BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95E00A95-6682-4FEF-BF6B-4EF082E8FFCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95E00A95-6682-4FEF-BF6B-4EF082E8FFCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95E00A95-6682-4FEF-BF6B-4EF082E8FFCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95E00A95-6682-4FEF-BF6B-4EF082E8FFCA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
